@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ro.ulbsibiu.acaps.e3s.ctg.E3sBenchmarkData;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sCore;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sTaskCore;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sCore.E3sCoreParams;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sTaskCore.E3sTaskCoreParams;
 
 import de.susebox.jtopas.Flags;
 import de.susebox.jtopas.Token;
@@ -74,30 +78,56 @@ public class E3sTgffFileParser {
 	
 	// E3S specific patterns
 	
+	// constants for communication quantities
+	
 	private static final String AT_COMMUN_QUANT = "@COMMUN_QUANT";
 	
 	private static final String E3S_COMMUN_QUANTITY = AT_COMMUN_QUANT + " "
 			+ REGEX_ANY_INTEGER_NUMBER + " \\{";
 	
+	// constants for core parameters
+	
+	private static final String AT_CORE = "@CORE";
+	
+	private static final String E3S_CORE = AT_CORE + " "
+			+ REGEX_ANY_INTEGER_NUMBER + " \\{";
+	
+	private int e3sCoreParamIndex = 0;
+	
+	private int e3sCoreTaskParamIndex = 0;
+	
+	private E3sCore e3sCore;
+	
+	private E3sTaskCore e3sTaskCore;
+	
+	// constants for wire bandwidth
+	
+	private static final String AT_WIRE_BIT_WIDTH = "@WIRE_BIT_WIDTH";
+	
+	private static final String E3S_WIRE_BIT_WIDTH = "@WIRE_BIT_WIDTH" + " "
+			+ REGEX_ANY_INTEGER_NUMBER;
+	
+	// ---
+	
 	/** the file path */
 	private String filePath;
 	
 	/** the E3S Communication Task Graphs */
-	private List<E3sBenchmarkData> ctgs;
+	private List<E3sBenchmarkData> e3sCtgs;
 	
 	/**
 	 * Default constructor
 	 */
 	public E3sTgffFileParser(String filePath) {
 		this.filePath = filePath;
-		ctgs = new ArrayList<E3sBenchmarkData>();
+		e3sCtgs = new ArrayList<E3sBenchmarkData>();
 	}
 	
 	/**
 	 * @return the E3S Communication Task Graphs
 	 */
 	public List<E3sBenchmarkData> getE3sCtgs() {
-		return ctgs;
+		return e3sCtgs;
 	}
 
 	/**
@@ -149,9 +179,13 @@ public class E3sTgffFileParser {
 		
 		props.addPattern(E3S_COMMUN_QUANTITY);
 		
+		props.addPattern(E3S_CORE);
+		
 		props.addPattern(TGFF_TASK_GRAPH);
 		props.addPattern(TGFF_TASK);
 		props.addPattern(TGFF_ARC);
+		
+		props.addPattern(E3S_WIRE_BIT_WIDTH);
 
 		tokenizer.setTokenizerProperties(props);
 		tokenizer.setSource(new ReaderSource(reader));
@@ -160,8 +194,8 @@ public class E3sTgffFileParser {
 		String communType = null;
 		String communValue = null;
 		int taskGraphCounter = -1;
-		E3sBenchmarkData ctg = new E3sBenchmarkData();
-		ctgs.add(ctg);
+		E3sBenchmarkData e3sCtg = new E3sBenchmarkData();
+		e3sCtgs.add(e3sCtg);
 		
 		// tokenize the file and print basically
 		// formatted context to stdout
@@ -177,10 +211,32 @@ public class E3sTgffFileParser {
 						if (communValue == null) {
 							communValue = tokenizer.currentImage();
 						} else {
-							System.out.println(communType + " " + communValue);
-							ctg.addCommunicationVolume(communType, new Double(communValue));
+//							System.out.println(communType + " " + communValue);
+							e3sCtg.addCommunicationVolume(communType, new Double(communValue));
 							communType = tokenizer.currentImage();
 							communValue = null;
+						}
+					}
+				} else {
+					if (currentAttribute == AT_CORE) {
+						if (e3sCoreParamIndex < E3sCoreParams.values().length) {
+							System.out.println(E3sCoreParams.values()[e3sCoreParamIndex] + " " + tokenizer.currentImage());
+							e3sCore.setCoreParameter(E3sCoreParams.values()[e3sCoreParamIndex], new Double(tokenizer.currentImage()));
+							e3sCoreParamIndex++;
+						} else {
+							if (e3sCoreTaskParamIndex >= E3sTaskCoreParams.values().length) {
+								e3sCoreTaskParamIndex = 0;
+								e3sTaskCore = new E3sTaskCore();
+								e3sCore.addE3sTaskCore(e3sTaskCore);
+							}
+							System.out.println(E3sTaskCoreParams.values()[e3sCoreTaskParamIndex] + " " + tokenizer.currentImage());
+							e3sTaskCore.setTaskCoreParameter(E3sTaskCoreParams.values()[e3sCoreTaskParamIndex], new Double(tokenizer.currentImage()));
+							e3sCoreTaskParamIndex++;
+						}
+					} else {
+						if (currentAttribute == AT_WIRE_BIT_WIDTH) {
+							e3sCoreParamIndex = E3sCoreParams.values().length;
+							e3sCoreTaskParamIndex = E3sTaskCoreParams.values().length;
 						}
 					}
 				}
@@ -196,54 +252,71 @@ public class E3sTgffFileParser {
 				if (tokenizer.currentImage().startsWith(AT_TASK_GRAPH)) {
 					taskGraphCounter++;
 					if (taskGraphCounter > 0) {
-						ctg = new E3sBenchmarkData();
-						ctgs.add(ctg);
+						e3sCtg = new E3sBenchmarkData();
+						e3sCtgs.add(e3sCtg);
 					}
 				}
 				if (tokenizer.currentImage().startsWith(AT_COMMUN_QUANT)) {
 					currentAttribute = AT_COMMUN_QUANT;
 				} else {
-					if (tokenizer.currentImage().startsWith(TASK)) {
-						currentAttribute = TASK;
-						String taskValue = getAttributeValue(TASK, tokenizer.currentImage());
-						if (taskValue == null || taskValue.isEmpty()) {
-							taskValue = getAttributeValue(TASK.toLowerCase(),tokenizer.currentImage());
+					if (tokenizer.currentImage().startsWith(AT_CORE)) {
+						currentAttribute = AT_CORE;
+						e3sCore = new E3sCore();
+						e3sTaskCore = new E3sTaskCore();
+						e3sCore.addE3sTaskCore(e3sTaskCore);
+						// all the E3S CTGs were already added to the list e3sCtgs
+						for (int i = 0; i < e3sCtgs.size(); i++) {
+							e3sCtgs.get(i).addCore(e3sCore);
 						}
-						assert taskValue != null && !taskValue.isEmpty();
-						String typeValue = getAttributeValue(TYPE, tokenizer.currentImage());
-						if (typeValue == null || typeValue.isEmpty()) {
-							typeValue = getAttributeValue(TYPE.toLowerCase(),tokenizer.currentImage());
-						}
-						assert typeValue != null && !typeValue.isEmpty();
-						System.out.println(taskValue + " " + typeValue);
-						ctg.addTask(taskValue, typeValue);
+						e3sCoreParamIndex = 0;
+						e3sCoreTaskParamIndex = 0;
 					} else {
-						if (tokenizer.currentImage().startsWith(ARC)) {
-							currentAttribute = ARC;
-							String arcValue = getAttributeValue(ARC,tokenizer.currentImage());
-							if (arcValue == null || arcValue.isEmpty()) {
-								arcValue = getAttributeValue(ARC.toLowerCase(),tokenizer.currentImage());
-							}
-							assert arcValue != null && !arcValue.isEmpty();
-							String fromValue = getAttributeValue(FROM,tokenizer.currentImage());
-							if (fromValue == null || fromValue.isEmpty()) {
-								fromValue = getAttributeValue(FROM.toLowerCase(),tokenizer.currentImage());
-							}
-							assert fromValue != null && !fromValue.isEmpty();
-							String toValue = getAttributeValue(TO,tokenizer.currentImage());
-							if (toValue == null || toValue.isEmpty()) {
-								toValue = getAttributeValue(TO.toLowerCase(),tokenizer.currentImage());
-							}
-							assert toValue != null && !toValue.isEmpty();
-							String typeValue = getAttributeValue(TYPE,tokenizer.currentImage());
-							if (typeValue == null || typeValue.isEmpty()) {
-								typeValue = getAttributeValue(TYPE.toLowerCase(),tokenizer.currentImage());
-							}
-							assert typeValue != null && !typeValue.isEmpty();
-							System.out.println(arcValue + " " + fromValue +  " " + toValue + " " + typeValue);
-							ctg.addEdge(arcValue, fromValue, toValue, typeValue);
+						if (tokenizer.currentImage().startsWith(AT_WIRE_BIT_WIDTH)) {
+							currentAttribute = AT_WIRE_BIT_WIDTH;
 						} else {
-							currentAttribute = null;
+							if (tokenizer.currentImage().startsWith(TASK)) {
+								currentAttribute = TASK;
+								String taskValue = getAttributeValue(TASK, tokenizer.currentImage());
+								if (taskValue == null || taskValue.isEmpty()) {
+									taskValue = getAttributeValue(TASK.toLowerCase(),tokenizer.currentImage());
+								}
+								assert taskValue != null && !taskValue.isEmpty();
+								String typeValue = getAttributeValue(TYPE, tokenizer.currentImage());
+								if (typeValue == null || typeValue.isEmpty()) {
+									typeValue = getAttributeValue(TYPE.toLowerCase(),tokenizer.currentImage());
+								}
+								assert typeValue != null && !typeValue.isEmpty();
+//								System.out.println(taskValue + " " + typeValue);
+								e3sCtg.addTask(taskValue, typeValue);
+							} else {
+								if (tokenizer.currentImage().startsWith(ARC)) {
+									currentAttribute = ARC;
+									String arcValue = getAttributeValue(ARC,tokenizer.currentImage());
+									if (arcValue == null || arcValue.isEmpty()) {
+										arcValue = getAttributeValue(ARC.toLowerCase(),tokenizer.currentImage());
+									}
+									assert arcValue != null && !arcValue.isEmpty();
+									String fromValue = getAttributeValue(FROM,tokenizer.currentImage());
+									if (fromValue == null || fromValue.isEmpty()) {
+										fromValue = getAttributeValue(FROM.toLowerCase(),tokenizer.currentImage());
+									}
+									assert fromValue != null && !fromValue.isEmpty();
+									String toValue = getAttributeValue(TO,tokenizer.currentImage());
+									if (toValue == null || toValue.isEmpty()) {
+										toValue = getAttributeValue(TO.toLowerCase(),tokenizer.currentImage());
+									}
+									assert toValue != null && !toValue.isEmpty();
+									String typeValue = getAttributeValue(TYPE,tokenizer.currentImage());
+									if (typeValue == null || typeValue.isEmpty()) {
+										typeValue = getAttributeValue(TYPE.toLowerCase(),tokenizer.currentImage());
+									}
+									assert typeValue != null && !typeValue.isEmpty();
+//									System.out.println(arcValue + " " + fromValue +  " " + toValue + " " + typeValue);
+									e3sCtg.addEdge(arcValue, fromValue, toValue, typeValue);
+								} else {
+									currentAttribute = null;
+								}
+							}
 						}
 					}
 				}
@@ -252,25 +325,31 @@ public class E3sTgffFileParser {
 		}
 		// process the data which is still "buffered"
 		assert communType != null && communValue != null;
-		System.out.println(communType + " " + communValue);
-		ctgs.get(0).addCommunicationVolume(communType, new Double(communValue));
+//		System.out.println(communType + " " + communValue);
+		e3sCtgs.get(0).addCommunicationVolume(communType, new Double(communValue));
 		
-		buildCtgs();
+		buildE3sCtgs();
 	}
 	
-	private void buildCtgs() {
-		for (int i = 0; i < ctgs.size(); i++) {
+	private void buildE3sCtgs() {
+		for (int i = 0; i < e3sCtgs.size(); i++) {
 			if (i > 0) {
-				ctgs.get(i).setCommunicationVolumes(ctgs.get(0).getCommunicationVolumes());
+				e3sCtgs.get(i).setCommunicationVolumes(e3sCtgs.get(0).getCommunicationVolumes());
 			}
-			ctgs.get(i).buildCtg();
+			e3sCtgs.get(i).buildCtg();
 		}
 	}
 	
 	// Main method. Supply a TGFF file name as argument
 	public static void main(String[] args) throws FileNotFoundException,
 			TokenizerException {
-		E3sTgffFileParser e3sFileParser = new E3sTgffFileParser(args[0]);
-		e3sFileParser.parseTgffFile();
+		if (args == null || args.length == 0) {
+			System.err.println("usage:   java E3sCtgViewer.class <.tgff file>");
+			System.err.println("example: java E3sCtgViewer.class e3s/telecom-mocsyn.tgff");
+		} else {
+			E3sTgffFileParser e3sFileParser = new E3sTgffFileParser(args[0]);
+			e3sFileParser.parseTgffFile();
+			System.out.println(); // good for setting a debug breakpoint :)
+		}
 	}
 }

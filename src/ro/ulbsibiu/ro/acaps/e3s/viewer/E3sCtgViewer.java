@@ -59,22 +59,27 @@ public class E3sCtgViewer extends JApplet {
 	 * @throws FileNotFoundException 
 	 */
 	public static void main(String[] args) throws FileNotFoundException, TokenizerException {
-    	E3sTgffFileParser e3sFileParser = new E3sTgffFileParser(args[0]);
-		e3sFileParser.parseTgffFile();
-		List<E3sBenchmarkData> ctgs = e3sFileParser.getE3sCtgs();
-		for (int i = ctgs.size() - 1; i >= 0; i--) {
-			E3sCtgViewer app = new E3sCtgViewer(ctgs.get(i).getCtg());
-			
-			// Switch off D3D because of Sun XOR painting bug
-			// See http://www.jgraph.com/forum/viewtopic.php?t=4066
-			System.setProperty("sun.java2d.d3d", "false");
-			JFrame frame = new JFrame("E3S CTG " + i);
-			JGraphLayoutPanel layoutPanel = app.initialize();
-			frame.getContentPane().add(layoutPanel);
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.pack();
-			frame.setSize(800, 600);
-			frame.setVisible(true);
+		if (args == null || args.length == 0) {
+			System.err.println("usage:   java E3sCtgViewer.class <.tgff file>");
+			System.err.println("example: java E3sCtgViewer.class e3s/telecom-mocsyn.tgff");
+		} else {
+	    	E3sTgffFileParser e3sFileParser = new E3sTgffFileParser(args[0]);
+			e3sFileParser.parseTgffFile();
+			List<E3sBenchmarkData> ctgs = e3sFileParser.getE3sCtgs();
+			for (int i = ctgs.size() - 1; i >= 0; i--) {
+				E3sCtgViewer app = new E3sCtgViewer(ctgs.get(i).getCtg());
+				
+				// Switch off D3D because of Sun XOR painting bug
+				// See http://www.jgraph.com/forum/viewtopic.php?t=4066
+				System.setProperty("sun.java2d.d3d", "false");
+				JFrame frame = new JFrame("E3S CTG " + i);
+				JGraphLayoutPanel layoutPanel = app.initialize();
+				frame.getContentPane().add(layoutPanel);
+				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				frame.pack();
+				frame.setSize(800, 600);
+				frame.setVisible(true);
+			}
 		}
 	}
 
