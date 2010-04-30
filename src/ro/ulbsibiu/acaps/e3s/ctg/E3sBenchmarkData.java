@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ro.ulbsibiu.acaps.ctg.CommunicationTaskGraph;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType;
 
 /**
- * The data held by an an E3S benchmark, for building Communication Task Graphs 
+ * The data held by an an E3S benchmark, for building Communication Task Graphs.
+ * Each E3S benchmark data contains the data of a <i>single</i> CTG.
  * 
  * @author Ciprian Radu
  *
@@ -14,6 +16,9 @@ import ro.ulbsibiu.acaps.ctg.CommunicationTaskGraph;
 public class E3sBenchmarkData {
 
 	private CommunicationTaskGraph ctg;
+	
+	/** the period of the CTG (measured in seconds). The root task node injects new data with this period */
+	private double period;
 	
 	private List<E3sCommunicationVolume> communicationVolumes;
 	
@@ -23,12 +28,31 @@ public class E3sBenchmarkData {
 	
 	private List<E3sCore> cores;
 	
+	/** holds all the deadlines (hard and soft) associated to the tasks of this CTG */
+	private List<E3sDeadline> deadlines;
+	
 	public E3sBenchmarkData() {
+		period = 0;
 		ctg = new CommunicationTaskGraph();
 		communicationVolumes = new ArrayList<E3sCommunicationVolume>();
 		vertices = new ArrayList<E3sVertex>();
 		edges = new ArrayList<E3sEdge>();
 		cores = new ArrayList<E3sCore>();
+		deadlines = new ArrayList<E3sDeadline>();
+	}
+	
+	/**
+	 * Sets the period of the CTG (in seconds).
+	 * 
+	 * @param period the period (must be a positive number)
+	 */
+	public void setPeriod(double period) {
+		assert period >=0;
+		this.period = period;
+	}
+	
+	public double getPeriod() {
+		return period;
 	}
 	
 	public void addCommunicationVolume(String communicationType, Double communicationVolume) {
@@ -53,6 +77,18 @@ public class E3sBenchmarkData {
 	
 	public void addCore(E3sCore core) {
 		cores.add(core);
+	}
+	
+	/**
+	 * Adds a deadline to a task of the CTG. The deadline can be hard of soft.
+	 * 
+	 * @param type the type of the deadline
+	 * @param deadlineName the deadline's name
+	 * @param taskName the name of the task
+	 * @param time the deadline, expressed in seconds
+	 */
+	public void addDeadline(DeadlineType type, String deadlineName, String taskName, double time) {
+		deadlines.add(new E3sDeadline(type, deadlineName, taskName, time));
 	}
 	
 	private E3sCommunicationVolume findCommunicationVolume(String type) {

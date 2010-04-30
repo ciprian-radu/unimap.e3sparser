@@ -9,6 +9,7 @@ import ro.ulbsibiu.acaps.e3s.ctg.E3sBenchmarkData;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sCore;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sTaskCore;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sCore.E3sCoreParams;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sTaskCore.E3sTaskCoreParams;
 
 import de.susebox.jtopas.Flags;
@@ -38,6 +39,10 @@ public class E3sTgffFileParser {
 	private static final String REGEX_ANY_CHARACTER_MULTIPLE_TIMES = REGEX_ANY_CHARACTER + "*";
 	
 	private static final String REGEX_ANY_INTEGER_NUMBER = "-?[0-9]*";
+	
+	private static final String REGEX_ANY_DOUBLE_NUMBER = "[-+]?\\b\\d+(\\.\\d+)?\\b";
+	
+	private static final String REGEX_ANY_POSITIVE_DOUBLE_NUMBER = "[+]?\\b\\d+(\\.\\d+)?\\b";
 	
 	private static final String REGEX_AS_MANY_SPACES = "[ ]*";
 	
@@ -75,6 +80,31 @@ public class E3sTgffFileParser {
 			+ REGEX_ANY_CHARACTER_MULTIPLE_TIMES + REGEX_AS_MANY_SPACES + TO + " "
 			+ REGEX_ANY_CHARACTER_MULTIPLE_TIMES + REGEX_AS_MANY_SPACES + TYPE + " "
 			+ REGEX_ANY_INTEGER_NUMBER;
+	
+	private static final String PERIOD = "PERIOD";
+	
+	/** regex: PERIOD followed by its value (a positive floating point number)*/
+	private static final String TGFF_PERIOD = PERIOD + " " + REGEX_ANY_POSITIVE_DOUBLE_NUMBER;
+	
+	private static final String ON = "ON";
+	
+	private static final String AT = "AT";
+	
+	private static final String HARD_DEADLINE = "HARD_DEADLINE";
+	
+	/** regex: HARD_DEADLINE followed its name ON task name AT time */
+	private static final String TGFF_HARD_DEADLINE = HARD_DEADLINE + " "
+			+ REGEX_ANY_CHARACTER_MULTIPLE_TIMES + REGEX_AS_MANY_SPACES + ON + " "
+			+ REGEX_ANY_CHARACTER_MULTIPLE_TIMES + REGEX_AS_MANY_SPACES + AT + " "
+			+ REGEX_ANY_POSITIVE_DOUBLE_NUMBER;
+	
+	private static final String SOFT_DEADLINE = "SOFT_DEADLINE";
+	
+	/** regex: SOFT_DEADLINE followed its name ON task name AT time */
+	private static final String TGFF_SOFT_DEADLINE = SOFT_DEADLINE + " "
+	+ REGEX_ANY_CHARACTER_MULTIPLE_TIMES + REGEX_AS_MANY_SPACES + ON + " "
+	+ REGEX_ANY_CHARACTER_MULTIPLE_TIMES + REGEX_AS_MANY_SPACES + AT + " "
+	+ REGEX_ANY_POSITIVE_DOUBLE_NUMBER;
 	
 	// E3S specific patterns
 	
@@ -184,6 +214,9 @@ public class E3sTgffFileParser {
 		props.addPattern(TGFF_TASK_GRAPH);
 		props.addPattern(TGFF_TASK);
 		props.addPattern(TGFF_ARC);
+		props.addPattern(TGFF_PERIOD);
+		props.addPattern(TGFF_HARD_DEADLINE);
+		props.addPattern(TGFF_SOFT_DEADLINE);
 		
 		props.addPattern(E3S_WIRE_BIT_WIDTH);
 
@@ -220,7 +253,7 @@ public class E3sTgffFileParser {
 				} else {
 					if (currentAttribute == AT_CORE) {
 						if (e3sCoreParamIndex < E3sCoreParams.values().length) {
-							System.out.println(E3sCoreParams.values()[e3sCoreParamIndex] + " " + tokenizer.currentImage());
+//							System.out.println(E3sCoreParams.values()[e3sCoreParamIndex] + " " + tokenizer.currentImage());
 							e3sCore.setCoreParameter(E3sCoreParams.values()[e3sCoreParamIndex], new Double(tokenizer.currentImage()));
 							e3sCoreParamIndex++;
 						} else {
@@ -229,7 +262,7 @@ public class E3sTgffFileParser {
 								e3sTaskCore = new E3sTaskCore();
 								e3sCore.addE3sTaskCore(e3sTaskCore);
 							}
-							System.out.println(E3sTaskCoreParams.values()[e3sCoreTaskParamIndex] + " " + tokenizer.currentImage());
+//							System.out.println(E3sTaskCoreParams.values()[e3sCoreTaskParamIndex] + " " + tokenizer.currentImage());
 							e3sTaskCore.setTaskCoreParameter(E3sTaskCoreParams.values()[e3sCoreTaskParamIndex], new Double(tokenizer.currentImage()));
 							e3sCoreTaskParamIndex++;
 						}
@@ -314,7 +347,57 @@ public class E3sTgffFileParser {
 //									System.out.println(arcValue + " " + fromValue +  " " + toValue + " " + typeValue);
 									e3sCtg.addEdge(arcValue, fromValue, toValue, typeValue);
 								} else {
-									currentAttribute = null;
+									if (tokenizer.currentImage().startsWith(PERIOD)) {
+										currentAttribute = PERIOD;
+										String periodValue = getAttributeValue(PERIOD, tokenizer.currentImage());
+										assert periodValue != null && !periodValue.isEmpty();
+//										System.out.println(PERIOD + " " + periodValue);
+										e3sCtg.setPeriod(new Double(periodValue));
+									} else {
+										if (tokenizer.currentImage().startsWith(HARD_DEADLINE)) {
+											currentAttribute = HARD_DEADLINE;
+											String hdValue = getAttributeValue(HARD_DEADLINE,tokenizer.currentImage());
+											if (hdValue == null || hdValue.isEmpty()) {
+												hdValue = getAttributeValue(HARD_DEADLINE.toLowerCase(),tokenizer.currentImage());
+											}
+											assert hdValue != null && !hdValue.isEmpty();
+											String onValue = getAttributeValue(ON,tokenizer.currentImage());
+											if (onValue == null || onValue.isEmpty()) {
+												onValue = getAttributeValue(ON.toLowerCase(),tokenizer.currentImage());
+											}
+											assert onValue != null && !onValue.isEmpty();
+											String atValue = getAttributeValue(AT,tokenizer.currentImage());
+											if (atValue == null || atValue.isEmpty()) {
+												atValue = getAttributeValue(AT.toLowerCase(),tokenizer.currentImage());
+											}
+											assert atValue != null && !atValue.isEmpty();
+//											System.out.println(HARD_DEADLINE + " " + hdValue + " " + ON + " " + onValue +  " " + AT + " " + atValue);
+											e3sCtg.addDeadline(DeadlineType.HARD, hdValue, onValue, new Double(atValue));
+										} else {
+											if (tokenizer.currentImage().startsWith(SOFT_DEADLINE)) {
+												currentAttribute = SOFT_DEADLINE;
+												String softValue = getAttributeValue(SOFT_DEADLINE,tokenizer.currentImage());
+												if (softValue == null || softValue.isEmpty()) {
+													softValue = getAttributeValue(SOFT_DEADLINE.toLowerCase(),tokenizer.currentImage());
+												}
+												assert softValue != null && !softValue.isEmpty();
+												String onValue = getAttributeValue(ON,tokenizer.currentImage());
+												if (onValue == null || onValue.isEmpty()) {
+													onValue = getAttributeValue(ON.toLowerCase(),tokenizer.currentImage());
+												}
+												assert onValue != null && !onValue.isEmpty();
+												String atValue = getAttributeValue(AT,tokenizer.currentImage());
+												if (atValue == null || atValue.isEmpty()) {
+													atValue = getAttributeValue(AT.toLowerCase(),tokenizer.currentImage());
+												}
+												assert atValue != null && !atValue.isEmpty();
+//												System.out.println(SOFT_DEADLINE + " " + softValue + " " + ON + " " + onValue +  " " + AT + " " + atValue);
+												e3sCtg.addDeadline(DeadlineType.SOFT, softValue, onValue, new Double(atValue));
+											} else {
+												currentAttribute = null;
+											}
+										}
+									}
 								}
 							}
 						}
