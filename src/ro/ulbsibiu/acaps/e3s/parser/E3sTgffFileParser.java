@@ -8,6 +8,11 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 import ro.ulbsibiu.acaps.e3s.ctg.E3sBenchmarkData;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sCore;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sCore.E3sCoreParams;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sTaskCore;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sTaskCore.E3sTaskCoreParams;
 
 import de.susebox.jtopas.Flags;
 import de.susebox.jtopas.Token;
@@ -225,7 +230,7 @@ public class E3sTgffFileParser {
 		String communValue = null;
 		int taskGraphCounter = -1;
 		E3sBenchmarkData e3sCtg = new E3sBenchmarkData(filePath + "-" + (taskGraphCounter + 1));
-		e3sCtg.add(e3sCtg);
+		e3sCtgs.add(e3sCtg);
 		
 		// tokenize the file and print basically
 		// formatted context to stdout
@@ -283,7 +288,7 @@ public class E3sTgffFileParser {
 					taskGraphCounter++;
 					if (taskGraphCounter > 0) {
 						e3sCtg = new E3sBenchmarkData(filePath + "-" + taskGraphCounter);
-						e3sCtg.add(e3sCtg);
+						e3sCtgs.add(e3sCtg);
 					}
 				}
 				if (tokenizer.currentImage().startsWith(AT_COMMUN_QUANT)) {
