@@ -12,6 +12,8 @@ import ro.ulbsibiu.acaps.ctg.CommunicationTaskGraph;
  *
  */
 public class E3sBenchmarkData {
+	
+	private String name;
 
 	private CommunicationTaskGraph ctg;
 	
@@ -21,7 +23,8 @@ public class E3sBenchmarkData {
 	
 	private List<E3sEdge> edges;
 	
-	public E3sBenchmarkData() {
+	public E3sBenchmarkData(String name) {
+		this.name = name;
 		ctg = new CommunicationTaskGraph();
 		communicationVolumes = new ArrayList<E3sCommunicationVolume>();
 		vertices = new ArrayList<E3sVertex>();
@@ -81,8 +84,20 @@ public class E3sBenchmarkData {
 		}
 	}
 	
+	public String getName() {
+		return name;
+	}
+
 	public CommunicationTaskGraph getCtg() {
 		return ctg;
+	}
+
+	public List<E3sVertex> getVertices() {
+		return vertices;
+	}
+
+	public List<E3sEdge> getEdges() {
+		return edges;
 	}
 	
 }

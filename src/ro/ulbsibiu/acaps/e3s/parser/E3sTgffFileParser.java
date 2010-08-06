@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import ro.ulbsibiu.acaps.e3s.ctg.E3sBenchmarkData;
 
 import de.susebox.jtopas.Flags;
@@ -160,7 +162,7 @@ public class E3sTgffFileParser {
 		String communType = null;
 		String communValue = null;
 		int taskGraphCounter = -1;
-		E3sBenchmarkData ctg = new E3sBenchmarkData();
+		E3sBenchmarkData ctg = new E3sBenchmarkData(filePath + "-" + (taskGraphCounter + 1));
 		ctgs.add(ctg);
 		
 		// tokenize the file and print basically
@@ -196,7 +198,7 @@ public class E3sTgffFileParser {
 				if (tokenizer.currentImage().startsWith(AT_TASK_GRAPH)) {
 					taskGraphCounter++;
 					if (taskGraphCounter > 0) {
-						ctg = new E3sBenchmarkData();
+						ctg = new E3sBenchmarkData(filePath + "-" + taskGraphCounter);
 						ctgs.add(ctg);
 					}
 				}
@@ -269,8 +271,13 @@ public class E3sTgffFileParser {
 	
 	// Main method. Supply a TGFF file name as argument
 	public static void main(String[] args) throws FileNotFoundException,
-			TokenizerException {
+			TokenizerException, JAXBException {
 		E3sTgffFileParser e3sFileParser = new E3sTgffFileParser(args[0]);
 		e3sFileParser.parseTgffFile();
+		
+		List<E3sBenchmarkData> e3sCtgs = e3sFileParser.getE3sCtgs();
+		for (E3sBenchmarkData e3sBenchmarkData : e3sCtgs) {
+			E3sToXmlParser.parse(e3sBenchmarkData);
+		}
 	}
 }
