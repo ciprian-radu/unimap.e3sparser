@@ -15,7 +15,11 @@ import ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType;
  */
 public class E3sBenchmarkData {
 	
+	/** the name of the benchmark */
 	private String name;
+	
+	/** the ID of the CTG (an E3S benchmark file may hold multiple CTGs) */
+	private int ctgId; 
 
 	private CommunicationTaskGraph ctg;
 	
@@ -33,8 +37,19 @@ public class E3sBenchmarkData {
 	/** holds all the deadlines (hard and soft) associated to the tasks of this CTG */
 	private List<E3sDeadline> deadlines;
 	
-	public E3sBenchmarkData(String name) {
+	/**
+	 * Constructor
+	 * 
+	 * @param name
+	 *            the name of the benchmark (cannot be empty)
+	 * @param ctgId
+	 *            the ID of the CTG kept by this {@link E3sBenchmarkData}
+	 */
+	public E3sBenchmarkData(String name, int ctgId) {
+		assert name != null && name.length() > 0;
+		
 		this.name = name;
+		this.ctgId = ctgId;
 		period = 0;
 		ctg = new CommunicationTaskGraph();
 		communicationVolumes = new ArrayList<E3sCommunicationVolume>();
@@ -132,6 +147,10 @@ public class E3sBenchmarkData {
 		return name;
 	}
 
+	public int getCtgId() {
+		return ctgId;
+	}
+
 	public CommunicationTaskGraph getCtg() {
 		return ctg;
 	}
@@ -140,8 +159,16 @@ public class E3sBenchmarkData {
 		return vertices;
 	}
 
+	public List<E3sCore> getCores() {
+		return cores;
+	}
+
 	public List<E3sEdge> getEdges() {
 		return edges;
+	}
+
+	public List<E3sDeadline> getDeadlines() {
+		return deadlines;
 	}
 	
 }
