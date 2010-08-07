@@ -124,6 +124,9 @@ public class E3sTgffFileParser {
 	private static final String E3S_CORE = AT_CORE + " "
 			+ REGEX_ANY_INTEGER_NUMBER + " \\{";
 	
+	// we use the last comment for obtaining the name of each core
+	private String lastComment;
+	
 	private int e3sCoreParamIndex = 0;
 	
 	private int e3sCoreTaskParamIndex = 0;
@@ -229,7 +232,7 @@ public class E3sTgffFileParser {
 		String communType = null;
 		String communValue = null;
 		int taskGraphCounter = -1;
-		E3sBenchmarkData e3sCtg = new E3sBenchmarkData(filePath + "-" + (taskGraphCounter + 1));
+		E3sBenchmarkData e3sCtg = new E3sBenchmarkData(filePath, taskGraphCounter + 1);
 		e3sCtgs.add(e3sCtg);
 		
 		// tokenize the file and print basically
@@ -278,6 +281,7 @@ public class E3sTgffFileParser {
 				break;
 			case Token.LINE_COMMENT:
 //				System.out.println(tokenizer.currentImage());
+				lastComment = tokenizer.currentImage();
 				break;
 			case Token.SPECIAL_SEQUENCE:
 //				System.out.println(tokenizer.currentImage());
@@ -287,7 +291,7 @@ public class E3sTgffFileParser {
 				if (tokenizer.currentImage().startsWith(AT_TASK_GRAPH)) {
 					taskGraphCounter++;
 					if (taskGraphCounter > 0) {
-						e3sCtg = new E3sBenchmarkData(filePath + "-" + taskGraphCounter);
+						e3sCtg = new E3sBenchmarkData(filePath, taskGraphCounter);
 						e3sCtgs.add(e3sCtg);
 					}
 				}
@@ -295,8 +299,9 @@ public class E3sTgffFileParser {
 					currentAttribute = AT_COMMUN_QUANT;
 				} else {
 					if (tokenizer.currentImage().startsWith(AT_CORE)) {
-						currentAttribute = AT_CORE;
-						e3sCore = new E3sCore();
+						String coreName = lastComment.trim().substring(2);
+						e3sCore = new E3sCore(coreName,
+								tokenizer.currentImage().substring(AT_CORE.length() + 1, AT_CORE.length() + 2));
 						e3sTaskCore = new E3sTaskCore();
 						e3sCore.addE3sTaskCore(e3sTaskCore);
 						// all the E3S CTGs were already added to the list e3sCtgs
@@ -437,7 +442,8 @@ public class E3sTgffFileParser {
 		
 			List<E3sBenchmarkData> e3sCtgs = e3sFileParser.getE3sCtgs();
 			for (E3sBenchmarkData e3sBenchmarkData : e3sCtgs) {
-				E3sToXmlParser.parse(e3sBenchmarkData);
+				E3sToXmlParser e3sToXmlParser = new E3sToXmlParser(e3sBenchmarkData);
+				e3sToXmlParser.parse();
 			}
 		}
 	}
