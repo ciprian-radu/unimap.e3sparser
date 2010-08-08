@@ -123,6 +123,17 @@ public class E3sToXmlParser {
 		}
 	}
 
+	private static String findTaskId(List<E3sVertex> vertices, String taskName) {
+		String id = null;
+		for (E3sVertex e3sVertex : vertices) {
+			if (taskName.equals(e3sVertex.getName())) {
+				id = e3sVertex.getType();
+				break;
+			}
+		}
+		return id;
+	}
+
 	private static E3sDeadline findDeadline(List<E3sDeadline> deadlines,
 			String task, ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType type) {
 		E3sDeadline deadline = null;
@@ -139,8 +150,8 @@ public class E3sToXmlParser {
 		return deadline;
 	}
 
-	private static void parseCtgs(List<E3sEdge> edges,
-			List<E3sDeadline> deadlines, double period,
+	private static void parseCtgs(List<E3sVertex> vertices,
+			List<E3sEdge> edges, List<E3sDeadline> deadlines, double period,
 			String e3sBenchmarkName, int ctgId) throws JAXBException,
 			FileNotFoundException {
 		File e3sBenchmarkFile = new File(XML + File.separator
@@ -157,8 +168,8 @@ public class E3sToXmlParser {
 			CommunicationType communicationType = new CommunicationType();
 
 			CommunicatingTaskType source = new CommunicatingTaskType();
-			// FIXME
-			source.setId(e3sEdge.getFrom());
+			String sourceId = findTaskId(vertices, e3sEdge.getFrom());
+			source.setId(sourceId);
 			E3sDeadline sourceE3sDeadline = findDeadline(deadlines,
 					e3sEdge.getFrom(),
 					ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType.HARD);
@@ -169,8 +180,7 @@ public class E3sToXmlParser {
 				sourceDeadline.setValue(sourceE3sDeadline.getTime());
 				source.getDeadline().add(sourceDeadline);
 			}
-			sourceE3sDeadline = findDeadline(deadlines,
-					e3sEdge.getFrom(),
+			sourceE3sDeadline = findDeadline(deadlines, e3sEdge.getFrom(),
 					ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType.SOFT);
 			if (sourceE3sDeadline != null) {
 				DeadlineType sourceDeadline = new DeadlineType();
@@ -182,8 +192,8 @@ public class E3sToXmlParser {
 			communicationType.setSource(source);
 
 			CommunicatingTaskType destination = new CommunicatingTaskType();
-			// FIXME
-			destination.setId(e3sEdge.getTo());
+			String destinationId = findTaskId(vertices, e3sEdge.getTo());
+			destination.setId(destinationId);
 			E3sDeadline destinationE3sDeadline = findDeadline(deadlines,
 					e3sEdge.getTo(),
 					ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType.HARD);
@@ -194,8 +204,7 @@ public class E3sToXmlParser {
 				destinationDeadline.setValue(destinationE3sDeadline.getTime());
 				destination.getDeadline().add(destinationDeadline);
 			}
-			destinationE3sDeadline = findDeadline(deadlines,
-					e3sEdge.getTo(),
+			destinationE3sDeadline = findDeadline(deadlines, e3sEdge.getTo(),
 					ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType.SOFT);
 			if (destinationE3sDeadline != null) {
 				DeadlineType destinationDeadline = new DeadlineType();
@@ -238,9 +247,9 @@ public class E3sToXmlParser {
 			parseCores(e3sBenchmarkData.getCores(), e3sBenchmarkData.getName(),
 					e3sBenchmarkData.getCtgId());
 		}
-		parseCtgs(e3sBenchmarkData.getEdges(), e3sBenchmarkData.getDeadlines(),
-				e3sBenchmarkData.getPeriod(), e3sBenchmarkData.getName(),
-				e3sBenchmarkData.getCtgId());
+		parseCtgs(e3sBenchmarkData.getVertices(), e3sBenchmarkData.getEdges(),
+				e3sBenchmarkData.getDeadlines(), e3sBenchmarkData.getPeriod(),
+				e3sBenchmarkData.getName(), e3sBenchmarkData.getCtgId());
 		oldName = e3sBenchmarkData.getName();
 	}
 
