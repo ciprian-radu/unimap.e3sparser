@@ -299,9 +299,10 @@ public class E3sTgffFileParser {
 					currentAttribute = AT_COMMUN_QUANT;
 				} else {
 					if (tokenizer.currentImage().startsWith(AT_CORE)) {
+						currentAttribute = AT_CORE;
 						String coreName = lastComment.trim().substring(2);
 						e3sCore = new E3sCore(coreName,
-								tokenizer.currentImage().substring(AT_CORE.length() + 1, AT_CORE.length() + 2));
+								tokenizer.currentImage().substring(AT_CORE.length() + 1, tokenizer.currentImage().length() - 2));
 						e3sTaskCore = new E3sTaskCore();
 						e3sCore.addE3sTaskCore(e3sTaskCore);
 						// all the E3S CTGs were already added to the list e3sCtgs
