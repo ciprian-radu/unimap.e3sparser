@@ -1,7 +1,5 @@
 package ro.ulbsibiu.acaps.e3s.ctg;
 
-import ro.ulbsibiu.acaps.e3s.ctg.E3sCore.E3sCoreParams;
-
 /**
  * Keeps some performance metrics of a task, as it is processed by a certain IP core.
  * The following performance metrics are specified in an E3S benchmark:
@@ -29,19 +27,47 @@ public class E3sTaskCore {
 	 *
 	 */
 	public static enum E3sTaskCoreParams {
-		TYPE, VERSION, VALID, TASK_TIME, PREEMPT_TIME, CODE_BITS, TASK_POWER
+		/** unique identifier for a task */
+		TYPE,
+		
+		/** always set to 0 */
+		VERSION,
+		
+		/**
+		 * set to 1 when both ips (iterations per second) and cbytes (code size in
+		 * bytes) are defined; otherwise it is set to 1
+		 */
+		VALID,
+		
+		/** the execution time of a task (in seconds) */
+		TASK_TIME,
+		
+		/** task preemption time (in seconds) */
+		PREEMPT_TIME,
+		
+		/** the size of the executed code (in bits) */
+		CODE_BITS,
+		
+		/** the power consumption for the execution of this task (in Watt) */
+		TASK_POWER
 	}
 	
 	/** unique identifier for a task */
 	private double type;
 	
+	/** always set to 0 */
 	private double version;
 	
+	/**
+	 * set to 1 when both ips (iterations per second) and cbytes (code size in
+	 * bytes) are defined; otherwise it is set to 1
+	 */
 	private double valid;
 	
 	/** the execution time of a task (in seconds) */
 	private double taskTime;
 	
+	/** task preemption time (in seconds) */
 	private double preemtTime;
 	
 	/** the size of the executed code (in bits) */
@@ -50,6 +76,8 @@ public class E3sTaskCore {
 	/** the power consumption for the execution of this task (in Watt) */
 	private double taskPower;
 
+	// ********************************************************************* //
+	
 	/**
 	 * Sets a task core parameter
 	 * 

@@ -1,5 +1,11 @@
 package ro.ulbsibiu.acaps.e3s.ctg;
 
+/**
+ * Helper class for an E3S communication volume.
+ * 
+ * @author cipi
+ *
+ */
 public class E3sCommunicationVolume {
 
 	private String type;

@@ -34,30 +34,71 @@ public class E3sCore {
 	 */
 	public static enum E3sCoreParams {
 		// note that their order must match the order from the .tgff file
-		PRICE, BUFFERED, MAX_FREQ, WIDTH, HEIGHT, DENSITY, PREEMPT_POWER, COMMUN_EN_BIT, IO_EN_BIT, IDLE_POWER
+		
+		/** the price of the core (probably in dollars) */
+		PRICE,
+		
+		/** always set to 1 (it means that the core has some local memory where it can buffer data) */
+		BUFFERED,
+		
+		/** the maximum operating frequency of the core */
+		MAX_FREQ,
+		
+		/** the width of the core */
+		WIDTH,
+		
+		/** the height of the core */
+		HEIGHT,
+		
+		/** always set to 0.275 */
+		DENSITY,
+		
+		/** the power required to preempt a task (always set to 0) */
+		PREEMPT_POWER,
+		
+		/** the energy consumed for sending a bit (always set to 0) */
+		COMMUN_EN_BIT,
+		
+		/** the energy consumed for I/O operations (always set to 0) */
+		IO_EN_BIT,
+		
+		/** equals to (task_power / 10) The parameter task_power belongs to a task */
+		IDLE_POWER
 	}
 	
+	/** the price of the core (probably in dollars) */
 	private double price;
 	
+	/** always set to 1 (it means that the core has some local memory where it can buffer data) */
 	private double buffered;
 	
+	/** the maximum operating frequency of the core */
 	private double maxFrequency;
 	
+	/** the width of the core */
 	private double width;
 	
+	/** the height of the core */
 	private double height;
 	
+	/** always set to 0.275 */
 	private double density;
 	
+	/** the power required to preempt a task (always set to 0) */
 	private double preemptPower;
 	
-	private double communicationEnergy;
+	/** the energy consumed for sending a bit (always set to 0) */
+	private double communicationEnergyBit;
 	
+	/** the energy consumed for I/O operations (always set to 0) */
 	private double ioEnergy;
 	
+	/** equals to (task_power / 10) The parameter task_power belongs to a task */
 	private double idlePower;
 
-	/** the list with performance metrics of tasks */
+	// ********************************************************************* //
+	
+	/** keeps all the tasks associated to this IP core */
 	private List<E3sTaskCore> tasks = new ArrayList<E3sTaskCore>();
 	
 	/**
@@ -100,7 +141,7 @@ public class E3sCore {
 			buffered = value;
 			break;
 		case COMMUN_EN_BIT:
-			communicationEnergy = value;
+			communicationEnergyBit = value;
 			break;
 		case DENSITY:
 			density = value;
@@ -186,12 +227,12 @@ public class E3sCore {
 		this.preemptPower = preemptPower;
 	}
 
-	public double getCommunicationEnergy() {
-		return communicationEnergy;
+	public double getCommunicationEnergyBit() {
+		return communicationEnergyBit;
 	}
 
-	public void setCommunicationEnergy(double communicationEnergy) {
-		this.communicationEnergy = communicationEnergy;
+	public void setCommunicationEnergyBit(double communicationEnergy) {
+		this.communicationEnergyBit = communicationEnergy;
 	}
 
 	public double getIoEnergy() {
