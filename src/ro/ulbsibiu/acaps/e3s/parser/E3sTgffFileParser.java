@@ -5,11 +5,13 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import ro.ulbsibiu.acaps.e3s.ctg.E3sBenchmarkData;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sCore;
-import ro.ulbsibiu.acaps.e3s.ctg.E3sTaskCore;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sCore.E3sCoreParams;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sTaskCore;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sTaskCore.E3sTaskCoreParams;
 
 import de.susebox.jtopas.Flags;
@@ -122,6 +124,9 @@ public class E3sTgffFileParser {
 	private static final String E3S_CORE = AT_CORE + " "
 			+ REGEX_ANY_INTEGER_NUMBER + " \\{";
 	
+	// we use the last comment for obtaining the name of each core
+	private String lastComment;
+	
 	private int e3sCoreParamIndex = 0;
 	
 	private int e3sCoreTaskParamIndex = 0;
@@ -227,7 +232,7 @@ public class E3sTgffFileParser {
 		String communType = null;
 		String communValue = null;
 		int taskGraphCounter = -1;
-		E3sBenchmarkData e3sCtg = new E3sBenchmarkData();
+		E3sBenchmarkData e3sCtg = new E3sBenchmarkData(filePath, taskGraphCounter + 1);
 		e3sCtgs.add(e3sCtg);
 		
 		// tokenize the file and print basically
@@ -276,6 +281,7 @@ public class E3sTgffFileParser {
 				break;
 			case Token.LINE_COMMENT:
 //				System.out.println(tokenizer.currentImage());
+				lastComment = tokenizer.currentImage();
 				break;
 			case Token.SPECIAL_SEQUENCE:
 //				System.out.println(tokenizer.currentImage());
@@ -285,7 +291,7 @@ public class E3sTgffFileParser {
 				if (tokenizer.currentImage().startsWith(AT_TASK_GRAPH)) {
 					taskGraphCounter++;
 					if (taskGraphCounter > 0) {
-						e3sCtg = new E3sBenchmarkData();
+						e3sCtg = new E3sBenchmarkData(filePath, taskGraphCounter);
 						e3sCtgs.add(e3sCtg);
 					}
 				}
@@ -294,7 +300,9 @@ public class E3sTgffFileParser {
 				} else {
 					if (tokenizer.currentImage().startsWith(AT_CORE)) {
 						currentAttribute = AT_CORE;
-						e3sCore = new E3sCore();
+						String coreName = lastComment.trim().substring(2);
+						e3sCore = new E3sCore(coreName,
+								tokenizer.currentImage().substring(AT_CORE.length() + 1, tokenizer.currentImage().length() - 2));
 						e3sTaskCore = new E3sTaskCore();
 						e3sCore.addE3sTaskCore(e3sTaskCore);
 						// all the E3S CTGs were already added to the list e3sCtgs
@@ -425,14 +433,19 @@ public class E3sTgffFileParser {
 	
 	// Main method. Supply a TGFF file name as argument
 	public static void main(String[] args) throws FileNotFoundException,
-			TokenizerException {
+			TokenizerException, JAXBException {
 		if (args == null || args.length == 0) {
 			System.err.println("usage:   java E3sCtgViewer.class <.tgff file>");
 			System.err.println("example: java E3sCtgViewer.class e3s/telecom-mocsyn.tgff");
 		} else {
 			E3sTgffFileParser e3sFileParser = new E3sTgffFileParser(args[0]);
 			e3sFileParser.parseTgffFile();
-			System.out.println(); // good for setting a debug breakpoint :)
+		
+			List<E3sBenchmarkData> e3sCtgs = e3sFileParser.getE3sCtgs();
+			for (E3sBenchmarkData e3sBenchmarkData : e3sCtgs) {
+				E3sToXmlParser e3sToXmlParser = new E3sToXmlParser(e3sBenchmarkData);
+				e3sToXmlParser.parse();
+			}
 		}
 	}
 }

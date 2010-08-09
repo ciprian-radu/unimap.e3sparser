@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="lib/xmlunit1.0.jar"/>
 	<classpathentry kind="lib" path="lib/l2fprod-common-all.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CTG"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CTG-XML"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

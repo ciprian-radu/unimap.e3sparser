@@ -26,6 +26,12 @@ import java.util.List;
  */
 public class E3sCore {
 
+	/** the name of the core */
+	private String name;
+	
+	/** the ID of the core */
+	private String id;
+	
 	/**
 	 * The parameters of the IP core
 	 * 
@@ -102,6 +108,19 @@ public class E3sCore {
 	private List<E3sTaskCore> tasks = new ArrayList<E3sTaskCore>();
 	
 	/**
+	 * Constructor
+	 * 
+	 * @param name
+	 *            the name of the IP core
+	 * @param id
+	 *            the ID of the IP core
+	 */
+	public E3sCore(String name, String id) {
+		this.name = name;
+		this.id = id;
+	}
+	
+	/**
 	 * Adds an {@link E3sTaskCore} to the list of tasks processed by this core.
 	 * 
 	 * @param e3sTaskCore the task
@@ -171,6 +190,14 @@ public class E3sCore {
 		}
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public String getId() {
+		return id;
+	}
+
 	public double getPrice() {
 		return price;
 	}
