@@ -3,7 +3,9 @@ package ro.ulbsibiu.acaps.e3s.parser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -56,6 +58,13 @@ public class E3sToXmlParser {
 	private static String oldName = "";
 
 	/**
+	 * maps tasks, by their names, to their IDs, given when the tasks XML files
+	 * are created (note that the task type is not an ID; it is just a reference
+	 * in the all-tasks file from E3S)
+	 */
+	private static Map<String, String> taskNameToIdMap;
+
+	/**
 	 * Constructor
 	 * 
 	 * @param e3sBenchmarkData
@@ -66,6 +75,7 @@ public class E3sToXmlParser {
 
 		this.e3sBenchmarkData = e3sBenchmarkData;
 		coresParsed = false;
+		taskNameToIdMap = null;
 	}
 
 	private static void parseTasks(List<E3sVertex> vertices,
@@ -77,12 +87,17 @@ public class E3sToXmlParser {
 		File e3sBenchmarkFile = new File(XML + File.separator
 				+ e3sBenchmarkName);
 		e3sBenchmarkFile.mkdirs();
+
+		taskNameToIdMap = new HashMap<String, String>(vertices.size());
+
 		for (int i = 0; i < vertices.size(); i++) {
 			E3sVertex e3sVertex = vertices.get(i);
 			TaskType taskType = new TaskType();
 			taskType.setID(Integer.toString(i));
 			taskType.setName(e3sVertex.getName());
 			JAXBElement<TaskType> task = taskFactory.createTask(taskType);
+
+			taskNameToIdMap.put(taskType.getName(), taskType.getID());
 
 			JAXBContext jaxbContext = JAXBContext.newInstance(TaskType.class);
 			Marshaller marshaller = jaxbContext.createMarshaller();
@@ -123,17 +138,6 @@ public class E3sToXmlParser {
 		}
 	}
 
-	private static String findTaskId(List<E3sVertex> vertices, String taskName) {
-		String id = null;
-		for (E3sVertex e3sVertex : vertices) {
-			if (taskName.equals(e3sVertex.getName())) {
-				id = e3sVertex.getType();
-				break;
-			}
-		}
-		return id;
-	}
-
 	private static E3sDeadline findDeadline(List<E3sDeadline> deadlines,
 			String task, ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType type) {
 		E3sDeadline deadline = null;
@@ -154,6 +158,9 @@ public class E3sToXmlParser {
 			List<E3sEdge> edges, List<E3sDeadline> deadlines, double period,
 			String e3sBenchmarkName, int ctgId) throws JAXBException,
 			FileNotFoundException {
+
+		assert taskNameToIdMap != null;
+
 		File e3sBenchmarkFile = new File(XML + File.separator
 				+ e3sBenchmarkName);
 		e3sBenchmarkFile.mkdirs();
@@ -168,7 +175,7 @@ public class E3sToXmlParser {
 			CommunicationType communicationType = new CommunicationType();
 
 			CommunicatingTaskType source = new CommunicatingTaskType();
-			String sourceId = findTaskId(vertices, e3sEdge.getFrom());
+			String sourceId = taskNameToIdMap.get(e3sEdge.getFrom());
 			source.setId(sourceId);
 			E3sDeadline sourceE3sDeadline = findDeadline(deadlines,
 					e3sEdge.getFrom(),
@@ -192,7 +199,7 @@ public class E3sToXmlParser {
 			communicationType.setSource(source);
 
 			CommunicatingTaskType destination = new CommunicatingTaskType();
-			String destinationId = findTaskId(vertices, e3sEdge.getTo());
+			String destinationId = taskNameToIdMap.get(e3sEdge.getTo());
 			destination.setId(destinationId);
 			E3sDeadline destinationE3sDeadline = findDeadline(deadlines,
 					e3sEdge.getTo(),
