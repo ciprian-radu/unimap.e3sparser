@@ -80,7 +80,7 @@ public class E3sToXmlParser {
 		for (int i = 0; i < vertices.size(); i++) {
 			E3sVertex e3sVertex = vertices.get(i);
 			TaskType taskType = new TaskType();
-			taskType.setID(e3sVertex.getType());
+			taskType.setID(Integer.toString(i));
 			taskType.setName(e3sVertex.getName());
 			JAXBElement<TaskType> task = taskFactory.createTask(taskType);
 
