@@ -24,6 +24,7 @@ import ro.ulbsibiu.acaps.e3s.ctg.E3sCommunicationVolume;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sCore;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sEdge;
+import ro.ulbsibiu.acaps.e3s.ctg.E3sTaskCore;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sVertex;
 
 /**
@@ -94,6 +95,7 @@ public class E3sToXmlParser {
 			E3sVertex e3sVertex = vertices.get(i);
 			TaskType taskType = new TaskType();
 			taskType.setID(Integer.toString(i));
+			taskType.setType(e3sVertex.getType());
 			taskType.setName(e3sVertex.getName());
 			JAXBElement<TaskType> task = taskFactory.createTask(taskType);
 
@@ -127,6 +129,14 @@ public class E3sToXmlParser {
 			coreType.setHeight(e3sCore.getHeight());
 			coreType.setWidth(e3sCore.getWidth());
 			coreType.setIdlePower(e3sCore.getIdlePower());
+			List<E3sTaskCore> e3sTaskCores = e3sCore.getE3sTaskCores();
+			for (E3sTaskCore e3sTaskCore : e3sTaskCores) {
+				ro.ulbsibiu.acaps.ctg.xml.core.TaskType taskType = new ro.ulbsibiu.acaps.ctg.xml.core.TaskType();
+				taskType.setType(e3sTaskCore.getType());
+				taskType.setExecTime(e3sTaskCore.getTaskTime());
+				taskType.setPower(e3sTaskCore.getTaskPower());
+				coreType.getTask().add(taskType);
+			}
 			JAXBElement<CoreType> core = coreFactory.createCore(coreType);
 
 			JAXBContext jaxbContext = JAXBContext.newInstance(CoreType.class);
