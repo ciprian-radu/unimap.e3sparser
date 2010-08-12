@@ -137,15 +137,24 @@ public class E3sCore {
 	 * @param type the type of the task
 	 * @return the {@link E3sTaskCore} or <tt>null</tt>
 	 */
-	public E3sTaskCore getE3sTaskCore (double type) {
+	public E3sTaskCore getE3sTaskCore (String type) {
 		E3sTaskCore task = null;
 		for (int i = 0; i < tasks.size(); i++) {
-			if (type == tasks.get(i).getType()) {
+			if (type.equals(tasks.get(i).getType())) {
 				task = tasks.get(i);
 				break;
 			}
 		}
 		return task;
+	}
+	
+	/**
+	 * Retrieves a list with all the {@link E3sTaskCore} belonging to this core.
+	 * 
+	 * @return a list with all the {@link E3sTaskCore}
+	 */
+	public List<E3sTaskCore> getE3sTaskCores() {
+		return tasks;
 	}
 	
 	/**

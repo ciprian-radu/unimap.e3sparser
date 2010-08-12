@@ -53,7 +53,7 @@ public class E3sTaskCore {
 	}
 	
 	/** unique identifier for a task */
-	private double type;
+	private String type;
 	
 	/** always set to 0 */
 	private double version;
@@ -99,7 +99,7 @@ public class E3sTaskCore {
 			taskTime = value;
 			break;
 		case TYPE:
-			type = value;
+			type = Long.toString(new Double(value).longValue());
 			break;
 		case VALID:
 			valid = value;
@@ -111,11 +111,11 @@ public class E3sTaskCore {
 		}
 	}
 	
-	public double getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(double type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
