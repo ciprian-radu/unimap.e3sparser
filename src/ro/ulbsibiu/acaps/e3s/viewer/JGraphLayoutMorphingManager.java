@@ -1,4 +1,4 @@
-package ro.ulbsibiu.ro.acaps.e3s.viewer;
+package ro.ulbsibiu.acaps.e3s.viewer;
 /*
  * $Id: JGraphLayoutMorphingManager.java,v 1.1 2009/09/25 15:17:49 david Exp $
  * Copyright (c) 2001-2005, Gaudenz Alder

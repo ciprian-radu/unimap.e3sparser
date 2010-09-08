@@ -1,4 +1,4 @@
-package ro.ulbsibiu.ro.acaps.e3s.viewer;
+package ro.ulbsibiu.acaps.e3s.viewer;
 
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;

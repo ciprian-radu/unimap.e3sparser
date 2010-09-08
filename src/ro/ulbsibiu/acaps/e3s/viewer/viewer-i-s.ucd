@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="viewer-i-s" foregroundRGB="255,255,255" description="" id="{UMLID=_l-VwELsuEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer}" metadata="uml2-1.0" initialized="true" tag="10" key="323030373036323920453353506172736572">
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.4/@sourceConnections.0" name="JGraphLayoutMorphingManager" location="597,364" size="292,353" timstampe="7" stereotype="" id="{UMLID=_HRADkLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutMorphingManager}" runTimeClassModel="clip,updateCell(Ljava.lang.Object;),setCellBounds(Ljava.lang.Object;Ljava.awt.geom.Rectangle2D;),isAnimatable(Ljava.lang.Object;),initialize(),oldBounds,morph(L/lib/jgraph.org.jgraph.JGraph;Ljava.util.Map;),fitViewport(L/lib/jgraph.org.jgraph.JGraph;),steps,execute(),nestedMap,graph,actionPerformed(Ljava.awt.event.ActionEvent;),context,delay,newBounds,step">
+    <children xsi:type="editmodel:CompartmentEditModel">
+      <children xsi:type="editmodel:AttributeEditModel" name="delay" size="55,16" id="{UMLID=_HaaeQbsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="steps" size="56,16" id="{UMLID=_HaZ3MLsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="graph" size="57,16" id="{UMLID=_HaHjUbsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="step" size="50,16" id="{UMLID=_HadhkLsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="oldBounds" size="80,16" id="{UMLID=_HaPfIrsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="newBounds" size="88,16" id="{UMLID=_HabsYLsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="context" size="65,16" id="{UMLID=_HaQtQbsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="clip" size="45,16" id="{UMLID=_HaEgALsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nestedMap" size="82,16" id="{UMLID=_Hac6gLsvEd-YP6PCNhC6sg}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel">
+      <children xsi:type="editmodel:MethodEditModel" name="morph" size="70,16" id="{UMLID=_HanSkbsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutMorphingManager#morph(L/lib/jgraph.org.jgraph.JGraph;Ljava.util.Map;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="isAnimatable" size="101,16" id="{UMLID=_Ha4YULsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutMorphingManager#isAnimatable(Ljava.lang.Object;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="initialize" size="77,16" id="{UMLID=_Ha3xQLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutMorphingManager#initialize()}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="actionPerformed" size="119,16" id="{UMLID=_HakPQLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutMorphingManager#actionPerformed(Ljava.awt.event.ActionEvent;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="execute" size="79,16" id="{UMLID=_Hav1cLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutMorphingManager#execute()}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateCell" size="90,16" id="{UMLID=_HaevsLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutMorphingManager#updateCell(Ljava.lang.Object;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setCellBounds" size="109,16" id="{UMLID=_Ha8CsLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutMorphingManager#setCellBounds(Ljava.lang.Object;Ljava.awt.geom.Rectangle2D;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="fitViewport" size="94,16" id="{UMLID=_HawcgLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutMorphingManager#fitViewport(L/lib/jgraph.org.jgraph.JGraph;)}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" id="{UMLID=_J1eLcLsvEd-YP6PCNhC6sg}" source="//@children.0" target="//@children.4" targetEnd="//@children.0/@sourceConnections.0/@children.2" label="//@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="morpher" location="28,0" id="{UMLID=_JK-c8rsvEd-YP6PCNhC6sg}" attachSource="true" multiplicityLabel="//@children.0/@sourceConnections.0/@children.1/@children.0" roleLabel="//@children.0/@sourceConnections.0/@children.1/@children.1" navigable="true" flags="4">
+        <children xsi:type="editmodel:LabelEditModel" name="1" location="660,343" size="6,14" fontInfo="Arial-8-0" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="# morpher" location="680,343" size="49,14" fontInfo="Arial-8-0" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="ownedEnd" location="66,268" id="{UMLID=_J1eLcbsvEd-YP6PCNhC6sg}" multiplicityLabel="//@children.0/@sourceConnections.0/@children.2/@children.0" flags="1">
+        <children xsi:type="editmodel:LabelEditModel" name="1" location="535,316" size="6,14" fontInfo="Arial-8-0" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showMethods="true" showAttributes="true" showLiterals="true" showAttributeParameterType="true" showAttributeJavaStereotype="true" showMethodJavaStereotype="true" showAttributeDefaultValue="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="JGraphLayoutProgressMonitor" location="70,434" size="573,119" timstampe="7" stereotype="" id="{UMLID=_IVRkALsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutProgressMonitor}" runTimeClassModel="JGraphLayoutProgressMonitor(Ljava.awt.Component;L/lib/jgraph.com.jgraph.layout.JGraphLayoutProgress;Ljava.lang.String;),progress,close(),propertyChange(Ljava.beans.PropertyChangeEvent;)">
+    <children xsi:type="editmodel:CompartmentEditModel">
+      <children xsi:type="editmodel:AttributeEditModel" name="progress" size="73,16" id="{UMLID=_IVYRsLsvEd-YP6PCNhC6sg}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel">
+      <children xsi:type="editmodel:MethodEditModel" name="JGraphLayoutProgressMonitor" size="187,16" id="{UMLID=_IVg0kLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutProgressMonitor#JGraphLayoutProgressMonitor(Ljava.awt.Component;L/lib/jgraph.com.jgraph.layout.JGraphLayoutProgress;Ljava.lang.String;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="propertyChange" size="118,16" id="{UMLID=_IV-HkLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutProgressMonitor#propertyChange(Ljava.beans.PropertyChangeEvent;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="close" size="66,16" id="{UMLID=_IVgNgrsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutProgressMonitor#close()}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showMethods="true" showAttributes="true" showLiterals="true" showAttributeParameterType="true" showAttributeJavaStereotype="true" showMethodJavaStereotype="true" showAttributeDefaultValue="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.3/@sourceConnections.0" name="E3sJGraphModelAdapter" location="70,308" size="362,101" timstampe="7" stereotype="" id="{UMLID=_InpGYLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/E3sJGraphModelAdapter}" runTimeClassModel="getDefaultVertexAttributes(),getDefaultEdgeAttributes(),E3sJGraphModelAdapter(Ljava.lang.Object;)">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel">
+      <children xsi:type="editmodel:MethodEditModel" name="E3sJGraphModelAdapter" size="160,16" id="{UMLID=_IoHngLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/E3sJGraphModelAdapter#E3sJGraphModelAdapter(Ljava.lang.Object;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getDefaultEdgeAttributes" size="160,16" id="{UMLID=_In16sLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/E3sJGraphModelAdapter#getDefaultEdgeAttributes()}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getDefaultVertexAttributes" size="168,16" id="{UMLID=_In-dkbsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/E3sJGraphModelAdapter#getDefaultVertexAttributes()}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" id="{UMLID=_JKLywLsvEd-YP6PCNhC6sg}" source="//@children.2" target="//@children.3" targetEnd="//@children.2/@sourceConnections.0/@children.2" label="//@children.2/@sourceConnections.0/@children.0" sourceEnd="//@children.2/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,14" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="jgAdapter" location="250,0" id="{UMLID=_I3guYLsvEd-YP6PCNhC6sg}" attachSource="true" multiplicityLabel="//@children.2/@sourceConnections.0/@children.1/@children.0" roleLabel="//@children.2/@sourceConnections.0/@children.1/@children.1" navigable="true" flags="2">
+        <children xsi:type="editmodel:LabelEditModel" name="1" location="307,287" size="6,14" fontInfo="Arial-8-0" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="- jgAdapter" location="327,287" size="54,14" fontInfo="Arial-8-0" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="ownedEnd" location="250,165" id="{UMLID=_JKLywbsvEd-YP6PCNhC6sg}" multiplicityLabel="//@children.2/@sourceConnections.0/@children.2/@children.0" flags="1">
+        <children xsi:type="editmodel:LabelEditModel" name="1" location="327,228" size="6,14" fontInfo="Arial-8-0" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showMethods="true" showAttributes="true" showLiterals="true" showAttributeParameterType="true" showAttributeJavaStereotype="true" showMethodJavaStereotype="true" showAttributeDefaultValue="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@sourceConnections.0" name="E3sCtgViewer" location="70,56" size="276,165" timstampe="8" stereotype="" id="{UMLID=_I2c-cLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/E3sCtgViewer}" runTimeClassModel="main([Ljava.lang.String;),jgAdapter,E3sCtgViewer(Lro.ulbsibiu.acaps.ctg.CommunicationTaskGraph;),initialize(),start(),ctg">
+    <children xsi:type="editmodel:CompartmentEditModel">
+      <children xsi:type="editmodel:AttributeEditModel" name="jgAdapter" size="82,21" id="{UMLID=_I3guYLsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ctg" size="50,21" id="{UMLID=_I3ijkLsvEd-YP6PCNhC6sg}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel">
+      <children xsi:type="editmodel:MethodEditModel" name="E3sCtgViewer" size="110,16" id="{UMLID=_I336wLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/E3sCtgViewer#E3sCtgViewer(Lro.ulbsibiu.acaps.ctg.CommunicationTaskGraph;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="initialize" size="77,16" id="{UMLID=_I303cLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/E3sCtgViewer#initialize()}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="start" size="62,16" id="{UMLID=_I33TsbsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/E3sCtgViewer#start()}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="main" size="62,16" id="{UMLID=_I3k_0bsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/E3sCtgViewer#main([Ljava.lang.String;)}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" size="2,1" autoLocated="true" id="{UMLID=_I75fILsvEd-YP6PCNhC6sg}" source="//@children.3" target="//@children.2" targetEnd="//@children.3/@sourceConnections.0/@children.2" label="//@children.3/@sourceConnections.0/@children.0" sourceEnd="//@children.3/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="50,28" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="137,165" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="137,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" size="2,1" autoLocated="true" id="{UMLID=_I8PdYbsvEd-YP6PCNhC6sg}" source="//@children.3" target="//@children.4" targetEnd="//@children.3/@sourceConnections.1/@children.2" label="//@children.3/@sourceConnections.1/@children.0" sourceEnd="//@children.3/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="50,28" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="276,82" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,97"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showMethods="true" showAttributes="true" showLiterals="true" showAttributeParameterType="true" showAttributeJavaStereotype="true" showMethodJavaStereotype="true" showAttributeDefaultValue="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.3/@sourceConnections.1 //@children.0/@sourceConnections.0" name="JGraphLayoutPanel" location="482,41" size="455,268" timstampe="7" stereotype="" id="{UMLID=_I32FkLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutPanel}" runTimeClassModel="JGraphLayoutPanel(L/lib/jgraph.org.jgraph.JGraph;),graph,directedCheckBox,createCellAttributes(Ljava.awt.geom.Point2D;),execute(L/lib/jgraph.com.jgraph.layout.JGraphLayout;),taskPane,createFacade(L/lib/jgraph.org.jgraph.JGraph;),flushOriginCheckBox,morpher,createEdgeAttributes(),reset(),createProgressMonitor(L/lib/jgraph.org.jgraph.JGraph;L/lib/jgraph.com.jgraph.layout.JGraphLayout.Stoppable;)">
+    <children xsi:type="editmodel:CompartmentEditModel">
+      <children xsi:type="editmodel:AttributeEditModel" name="graph" size="57,16" id="{UMLID=_JKtXMLsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="taskPane" size="73,16" id="{UMLID=_JK1TAbsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="flushOriginCheckBox" size="130,16" id="{UMLID=_JK_rELsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="directedCheckBox" size="117,16" id="{UMLID=_JKsJELsvEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="morpher" size="75,21" id="{UMLID=_JK-c8rsvEd-YP6PCNhC6sg}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel">
+      <children xsi:type="editmodel:MethodEditModel" name="JGraphLayoutPanel" size="134,16" id="{UMLID=_JLNGcLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutPanel#JGraphLayoutPanel(L/lib/jgraph.org.jgraph.JGraph;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="reset" size="65,16" id="{UMLID=_JWzScbsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutPanel#reset()}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="execute" size="79,16" id="{UMLID=_JLBgQLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutPanel#execute(L/lib/jgraph.com.jgraph.layout.JGraphLayout;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="createFacade" size="107,16" id="{UMLID=_JWz5gLsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutPanel#createFacade(L/lib/jgraph.org.jgraph.JGraph;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="createProgressMonitor" size="150,16" id="{UMLID=_JLah0LsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutPanel#createProgressMonitor(L/lib/jgraph.org.jgraph.JGraph;L/lib/jgraph.com.jgraph.layout.JGraphLayout.Stoppable;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="createCellAttributes" size="135,16" id="{UMLID=_JLVpUbsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutPanel#createCellAttributes(Ljava.awt.geom.Point2D;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="createEdgeAttributes" size="142,16" id="{UMLID=_JXFmUbsvEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.viewer/JGraphLayoutPanel#createEdgeAttributes()}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" size="2,1" autoLocated="true" id="{UMLID=_JmKkILsvEd-YP6PCNhC6sg}" source="//@children.4" target="//@children.0" targetEnd="//@children.4/@sourceConnections.0/@children.2" label="//@children.4/@sourceConnections.0/@children.0" sourceEnd="//@children.4/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="128,28" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="260,268" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="145,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showMethods="true" showAttributes="true" showLiterals="true" showAttributeParameterType="true" showAttributeJavaStereotype="true" showMethodJavaStereotype="true" showAttributeDefaultValue="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" interactive="false" level="4" showScope="InPackage" properties="wireOptions=0"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="14,14" gridOrigin="714,490" rulerUnit="cm">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" shortPackageNameFormat="true" showClassStereotype="true" showPackageStereotype="true" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showInterfaceStereotype="true" showMethods="true" showAttributes="true" showLiterlas="true" showInnerEntity="true" showAttributeParameterType="true" showAttributeJavaStereotype="true" showMethodJavaStereotype="true" showAttributeDefaultValue="true"/>
+</editmodel:ClassDiagramEditModel>
