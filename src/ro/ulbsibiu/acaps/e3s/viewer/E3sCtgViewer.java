@@ -1,4 +1,4 @@
-package ro.ulbsibiu.ro.acaps.e3s.viewer;
+package ro.ulbsibiu.acaps.e3s.viewer;
 import java.awt.BorderLayout;
 import java.io.FileNotFoundException;
 import java.util.List;

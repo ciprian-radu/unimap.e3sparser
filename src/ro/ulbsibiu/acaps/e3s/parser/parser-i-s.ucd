@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="parser-i-s" foregroundRGB="255,255,255" description="" id="{UMLID=_RkQBkLsaEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.parser}" metadata="uml2-1.0" initialized="true" tag="10" key="323030373036323920453353506172736572">
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@sourceConnections.0" name="E3sTgffFileParser" location="56,28" size="251,229" timstampe="7" stereotype="" id="{UMLID=_jBacALsaEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.parser/E3sTgffFileParser}" runTimeClassModel="main([Ljava.lang.String;),getE3sCtgs(),TGFF_HARD_DEADLINE,REGEX_ANY_POSITIVE_DOUBLE_NUMBER,TGFF_BLOCK_START,AT_WIRE_BIT_WIDTH,TGFF_LINE_COMMENT,TO,E3S_CORE,PERIOD,E3S_COMMUN_QUANTITY,REGEX_ANY_INTEGER_NUMBER,ON,e3sCoreParamIndex,E3S_WIRE_BIT_WIDTH,E3sTgffFileParser(Ljava.lang.String;),parseTgffFile(),TASK,getAttributeValue(Ljava.lang.String;Ljava.lang.String;),AT_TASK_GRAPH,REGEX_ANY_CHARACTER_MULTIPLE_TIMES,HARD_DEADLINE,lastComment,REGEX_ANY_DOUBLE_NUMBER,TYPE,TGFF_TASK,AT,TGFF_TASK_GRAPH,ARC,e3sCtgs,e3sCoreTaskParamIndex,TGFF_BLOCK_END,filePath,TGFF_ARC,e3sTaskCore,AT_CORE,buildE3sCtgs(),e3sCore,AT_COMMUN_QUANT,FROM,TGFF_PERIOD,SOFT_DEADLINE,TGFF_SOFT_DEADLINE,REGEX_ANY_CHARACTER,REGEX_AS_MANY_SPACES">
+    <children xsi:type="editmodel:CompartmentEditModel" size="248,717">
+      <children xsi:type="editmodel:AttributeEditModel" name="e3sCore" size="76,21" id="{UMLID=_jCNGMbsaEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="e3sTaskCore" size="98,21" id="{UMLID=_jCL4ELsaEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="filePath" size="64,16" id="{UMLID=_jCKC4LsaEd-YP6PCNhC6sg}"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="e3sCtgs" size="75,21" id="{UMLID=_jCGYgbsaEd-YP6PCNhC6sg}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="126,113">
+      <children xsi:type="editmodel:MethodEditModel" name="E3sTgffFileParser" size="126,16" id="{UMLID=_jCkSkLsaEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.parser/E3sTgffFileParser#E3sTgffFileParser(Ljava.lang.String;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getE3sCtgs" size="101,21" id="{UMLID=_jCcWwLsaEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.parser/E3sTgffFileParser#getE3sCtgs()}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="parseTgffFile" size="104,16" id="{UMLID=_jCdk4bsaEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.parser/E3sTgffFileParser#parseTgffFile()}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="buildE3sCtgs" size="102,16" id="{UMLID=_jCbvsLsaEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.parser/E3sTgffFileParser#buildE3sCtgs()}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="main" size="62,16" id="{UMLID=_jCTz4LsaEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.parser/E3sTgffFileParser#main([Ljava.lang.String;)}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" size="2,1" autoLocated="true" id="{UMLID=_jPHg0LsaEd-YP6PCNhC6sg}" source="//@children.0" target="//@children.1" targetEnd="//@children.0/@sourceConnections.0/@children.2" label="//@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="73,28" fontInfo="Arial-8-0" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="125,229" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="125,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showMethods="true" showAttributes="true" showLiterals="true" ShowInnerEntity="true" showAttributeParameterType="true" showAttributeJavaStereotype="true" showMethodJavaStereotype="true" showAttributeDefaultValue="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@sourceConnections.0 //@children.2/@sourceConnections.1" name="E3sToXmlParser" location="56,322" size="333,106" timstampe="7" stereotype="" id="{UMLID=_ichmQLsaEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.parser/E3sToXmlParser}" runTimeClassModel="CORES,taskNameToIdMap,findDeadline(LCollection;Ljava.lang.String;Lro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType;),parseTasks(LCollection;Ljava.lang.String;I),parseCores(LCollection;Ljava.lang.String;I),e3sBenchmarkData,coresParsed,CORE,parse(),oldName,TASKS,parseCtgs(LCollection;LCollection;LCollection;DLjava.lang.String;I),CTG,TASK,XML,E3sToXmlParser(Lro.ulbsibiu.acaps.e3s.ctg.E3sBenchmarkData;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="129,185">
+      <children xsi:type="editmodel:AttributeEditModel" name="e3sBenchmarkData" size="129,21" id="{UMLID=_ieCpMbsaEd-YP6PCNhC6sg}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="118,108">
+      <children xsi:type="editmodel:MethodEditModel" name="E3sToXmlParser" size="118,16" id="{UMLID=_ieG6oLsaEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.parser/E3sToXmlParser#E3sToXmlParser(Lro.ulbsibiu.acaps.e3s.ctg.E3sBenchmarkData;)}"/>
+      <children xsi:type="editmodel:MethodEditModel" name="parse" size="68,16" id="{UMLID=_iewa4LsaEd-YP6PCNhC6sg,JavaID=ro.ulbsibiu.acaps.e3s.parser/E3sToXmlParser#parse()}"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showMethods="true" showAttributes="true" showLiterals="true" ShowInnerEntity="true" showAttributeParameterType="true" showAttributeJavaStereotype="true" showMethodJavaStereotype="true" showAttributeDefaultValue="true"/>
+  </children>
+  <children xsi:type="editmodel:NotepadEditModel" foregroundRGB="91,91,0" location="336,28" size="109,69" fontInfo="Arial-8-0" note="Only the most &#xD;&#xA;important fields &#xD;&#xA;and methods are &#xD;&#xA;shown.">
+    <sourceConnections xsi:type="editmodel:IndicationEditModel" autoLocated="true" source="//@children.2" target="//@children.0" targetEnd="//@children.2/@sourceConnections.0/@children.1" sourceEnd="//@children.2/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,34" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="251,34"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:IndicationEditModel" autoLocated="true" source="//@children.2" target="//@children.1" targetEnd="//@children.2/@sourceConnections.1/@children.1" sourceEnd="//@children.2/@sourceConnections.1/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="26,69" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="306,0"/>
+    </sourceConnections>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" interactive="false" level="4" showScope="InPackage" properties="wireOptions=0"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="14,14" gridOrigin="280,210" rulerUnit="cm">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" shortPackageNameFormat="true" showClassStereotype="true" showPackageStereotype="true" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showProtectedInnerClasses="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showPrivateInnerClasses="true" showStaticInnerClasses="true" showInterfaceStereotype="true" showMethods="true" showAttributes="true" showLiterlas="true" showInnerEntity="true" showAttributeParameterType="true" showAttributeJavaStereotype="true" showMethodJavaStereotype="true" showAttributeDefaultValue="true"/>
+</editmodel:ClassDiagramEditModel>
