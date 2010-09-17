@@ -1,4 +1,7 @@
 package ro.ulbsibiu.acaps.e3s.parser;
+
+import org.apache.log4j.Logger;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
@@ -33,6 +36,12 @@ import de.susebox.jtopas.ReaderSource;
  * 
  */
 public class E3sTgffFileParser {
+	
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger
+			.getLogger(E3sTgffFileParser.class);
 
 	// REGEX specific patterns
 	
@@ -155,6 +164,7 @@ public class E3sTgffFileParser {
 	 */
 	public E3sTgffFileParser(String filePath) {
 		this.filePath = filePath;
+		logger.info("Working the E3S " + filePath + " benchmark");
 		e3sCtgs = new ArrayList<E3sBenchmarkData>();
 	}
 	
@@ -196,6 +206,10 @@ public class E3sTgffFileParser {
 	}
 	
 	public void parseTgffFile () throws FileNotFoundException, TokenizerException {
+		if (logger.isInfoEnabled()) {
+			logger.debug("Parsing the E3S .tgff file");
+		}
+
 		FileInputStream stream = new FileInputStream(filePath);
 		InputStreamReader reader = new InputStreamReader(stream);
 		TokenizerProperties props = new StandardTokenizerProperties();
@@ -423,6 +437,10 @@ public class E3sTgffFileParser {
 	}
 	
 	private void buildE3sCtgs() {
+		if (logger.isInfoEnabled()) {
+			logger.info("Building the E3S CTGs");
+		}
+
 		for (int i = 0; i < e3sCtgs.size(); i++) {
 			if (i > 0) {
 				e3sCtgs.get(i).setCommunicationVolumes(e3sCtgs.get(0).getCommunicationVolumes());

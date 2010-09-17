@@ -1,5 +1,7 @@
 package ro.ulbsibiu.acaps.e3s.parser;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,7 +22,6 @@ import ro.ulbsibiu.acaps.ctg.xml.ctg.DeadlineType;
 import ro.ulbsibiu.acaps.ctg.xml.task.ObjectFactory;
 import ro.ulbsibiu.acaps.ctg.xml.task.TaskType;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sBenchmarkData;
-import ro.ulbsibiu.acaps.e3s.ctg.E3sCommunicationVolume;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sCore;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sEdge;
@@ -32,6 +33,11 @@ import ro.ulbsibiu.acaps.e3s.ctg.E3sVertex;
  * 
  */
 public class E3sToXmlParser {
+	
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(E3sToXmlParser.class);
 
 	private static final String XML = "xml";
 
@@ -72,7 +78,7 @@ public class E3sToXmlParser {
 	 *            the E3S benchmark (cannot be <tt>null</tt>)
 	 */
 	public E3sToXmlParser(E3sBenchmarkData e3sBenchmarkData) {
-		assert e3sBenchmarkData != null;
+		logger.assertLog(e3sBenchmarkData != null, "An E3sBenchmarkData must be specified");
 
 		this.e3sBenchmarkData = e3sBenchmarkData;
 		coresParsed = false;
@@ -82,7 +88,9 @@ public class E3sToXmlParser {
 	private static void parseTasks(List<E3sVertex> vertices,
 			String e3sBenchmarkName, int ctgId) throws JAXBException,
 			FileNotFoundException {
-		// System.out.println("E3sToXmlParser.parseTasks()");
+		if (logger.isInfoEnabled()) {
+			logger.info("Parsing the tasks");
+		}
 
 		ObjectFactory taskFactory = new ObjectFactory();
 		File e3sBenchmarkFile = new File(XML + File.separator
@@ -107,15 +115,21 @@ public class E3sToXmlParser {
 					+ File.separator + CTG + "-" + ctgId + File.separator
 					+ TASKS);
 			taskFile.mkdirs();
-			marshaller.marshal(task, new FileOutputStream(taskFile.getPath()
-					+ File.separator + TASK + "-" + i + "." + XML));
+			String name = taskFile.getPath() + File.separator + TASK + "-" + i
+					+ "." + XML;
+			if (logger.isInfoEnabled()) {
+				logger.info("Creating XML " + name);
+			}
+			marshaller.marshal(task, new FileOutputStream(name));
 		}
 	}
 
 	private static void parseCores(List<E3sCore> cores,
 			String e3sBenchmarkName, int ctgId) throws JAXBException,
 			FileNotFoundException {
-		// System.out.println("E3sToXmlParser.parseCores()");
+		if (logger.isInfoEnabled()) {
+			logger.info("Parsing the cores");
+		}
 
 		ro.ulbsibiu.acaps.ctg.xml.core.ObjectFactory coreFactory = new ro.ulbsibiu.acaps.ctg.xml.core.ObjectFactory();
 		File file = new File(XML + File.separator + e3sBenchmarkName);
@@ -143,8 +157,12 @@ public class E3sToXmlParser {
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			File coreFile = new File(file.getPath() + File.separator + CORES);
 			coreFile.mkdir();
-			marshaller.marshal(core, new FileOutputStream(coreFile.getPath()
-					+ File.separator + CORE + "-" + i + "." + XML));
+			String name = coreFile.getPath() + File.separator + CORE + "-" + i
+					+ "." + XML;
+			if (logger.isInfoEnabled()) {
+				logger.info("Creating XML " + name);
+			}
+			marshaller.marshal(core, new FileOutputStream(name));
 		}
 	}
 
@@ -168,6 +186,9 @@ public class E3sToXmlParser {
 			List<E3sEdge> edges, List<E3sDeadline> deadlines, double period,
 			String e3sBenchmarkName, int ctgId) throws JAXBException,
 			FileNotFoundException {
+		if (logger.isInfoEnabled()) {
+			logger.info("Parsing the CTGs");
+		}
 
 		assert taskNameToIdMap != null;
 
@@ -242,17 +263,25 @@ public class E3sToXmlParser {
 		File ctgFile = new File(e3sBenchmarkFile.getPath() + File.separator
 				+ CTG + "-" + ctgId);
 		ctgFile.mkdirs();
-		marshaller.marshal(ctg, new FileOutputStream(ctgFile.getPath()
-				+ File.separator + CTG + "-" + ctgId + "." + XML));
+		String name = ctgFile.getPath() + File.separator + CTG + "-" + ctgId
+				+ "." + XML;
+		if (logger.isInfoEnabled()) {
+			logger.info("Creating XML " + name);
+		}
+		marshaller.marshal(ctg, new FileOutputStream(name));
 	}
 
 	/**
-	 * Parses the data of E3S benchmarks into XML files.
+	 * Parses the data of E3S benchmarks to XML files.
 	 * 
 	 * @throws JAXBException
 	 * @throws FileNotFoundException
 	 */
 	public void parse() throws JAXBException, FileNotFoundException {
+		if (logger.isInfoEnabled()) {
+			logger.info("Parsing the E3S benchmark data to XML files");
+		}
+
 		if (oldName.equals(e3sBenchmarkData.getName())) {
 			coresParsed = true;
 		} else {
