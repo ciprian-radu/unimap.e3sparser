@@ -9,6 +9,7 @@
 	<classpathentry kind="lib" path="lib/TGGraphLayout.jar"/>
 	<classpathentry kind="lib" path="lib/xmlunit1.0.jar"/>
 	<classpathentry kind="lib" path="lib/l2fprod-common-all.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CTG"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CTG-XML"/>
 	<classpathentry kind="output" path="classes"/>
