@@ -39,6 +39,9 @@ public class E3sToXmlParser {
 	 */
 	private static final Logger logger = Logger.getLogger(E3sToXmlParser.class);
 
+	private static final String E3S_XML_FILE_PATH = "../CTG-XML"
+			+ File.separator + "xml" + File.separator;
+	
 	private static final String XML = "xml";
 
 	private static final String CTG = "ctg";
@@ -93,8 +96,7 @@ public class E3sToXmlParser {
 		}
 
 		ObjectFactory taskFactory = new ObjectFactory();
-		File e3sBenchmarkFile = new File(XML + File.separator
-				+ e3sBenchmarkName);
+		File e3sBenchmarkFile = new File(E3S_XML_FILE_PATH + e3sBenchmarkName);
 		e3sBenchmarkFile.mkdirs();
 
 		taskNameToIdMap = new HashMap<String, String>(vertices.size());
@@ -132,7 +134,7 @@ public class E3sToXmlParser {
 		}
 
 		ro.ulbsibiu.acaps.ctg.xml.core.ObjectFactory coreFactory = new ro.ulbsibiu.acaps.ctg.xml.core.ObjectFactory();
-		File file = new File(XML + File.separator + e3sBenchmarkName);
+		File file = new File(E3S_XML_FILE_PATH + e3sBenchmarkName);
 		file.mkdirs();
 		for (int i = 0; i < cores.size(); i++) {
 			E3sCore e3sCore = cores.get(i);
@@ -192,8 +194,7 @@ public class E3sToXmlParser {
 
 		assert taskNameToIdMap != null;
 
-		File e3sBenchmarkFile = new File(XML + File.separator
-				+ e3sBenchmarkName);
+		File e3sBenchmarkFile = new File(E3S_XML_FILE_PATH + e3sBenchmarkName);
 		e3sBenchmarkFile.mkdirs();
 
 		ro.ulbsibiu.acaps.ctg.xml.ctg.ObjectFactory ctgFactory = new ro.ulbsibiu.acaps.ctg.xml.ctg.ObjectFactory();
