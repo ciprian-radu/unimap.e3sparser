@@ -58,7 +58,7 @@ public class E3sToXmlParser {
 
 	/**
 	 * Each {@link E3sBenchmarkData} corresponds to a CTG from a benchmark.
-	 * Multiple CTGs may exist in a benchmark cut, each CTG will have the same
+	 * Multiple CTGs may exist in a benchmark set, each CTG will have the same
 	 * cores associated. Thus, parsing cores must really be made only for the
 	 * first CTG of each benchmark.
 	 */
