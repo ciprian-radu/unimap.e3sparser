@@ -38,6 +38,7 @@ import org.jgraph.graph.GraphConstants;
  * vertices, sizes, colors etc are changed after the animation in a single step.<br>
  * Note: This class is not thread-safe.
  */
+@SuppressWarnings("rawtypes")
 public class JGraphLayoutMorphingManager implements ActionListener {
 
 	/**
@@ -131,6 +132,7 @@ public class JGraphLayoutMorphingManager implements ActionListener {
 	 * then the cell is moved to it's final location in the first animation
 	 * step.
 	 */
+	@SuppressWarnings("unchecked")
 	protected void initialize() {
 		// Initialize the old (current) and new (final) bounds
 		// hashtables if the bounds differ. For the non-animatable
