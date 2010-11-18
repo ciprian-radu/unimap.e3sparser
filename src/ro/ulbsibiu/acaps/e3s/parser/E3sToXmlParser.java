@@ -113,6 +113,7 @@ public class E3sToXmlParser {
 
 			JAXBContext jaxbContext = JAXBContext.newInstance(TaskType.class);
 			Marshaller marshaller = jaxbContext.createMarshaller();
+			marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
 			File taskFile = new File(e3sBenchmarkFile.getPath()
 					+ File.separator + CTG + "-" + ctgId + File.separator
 					+ TASKS);
@@ -157,6 +158,7 @@ public class E3sToXmlParser {
 
 			JAXBContext jaxbContext = JAXBContext.newInstance(CoreType.class);
 			Marshaller marshaller = jaxbContext.createMarshaller();
+			marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
 			File coreFile = new File(file.getPath() + File.separator + CORES);
 			coreFile.mkdir();
 			String name = coreFile.getPath() + File.separator + CORE + "-" + i
@@ -261,6 +263,7 @@ public class E3sToXmlParser {
 		JAXBElement<CtgType> ctg = ctgFactory.createCtg(ctgType);
 		JAXBContext jaxbContext = JAXBContext.newInstance(CtgType.class);
 		Marshaller marshaller = jaxbContext.createMarshaller();
+		marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
 		File ctgFile = new File(e3sBenchmarkFile.getPath() + File.separator
 				+ CTG + "-" + ctgId);
 		ctgFile.mkdirs();
