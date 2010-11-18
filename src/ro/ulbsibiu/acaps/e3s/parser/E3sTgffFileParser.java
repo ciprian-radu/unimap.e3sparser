@@ -1,9 +1,6 @@
 package ro.ulbsibiu.acaps.e3s.parser;
 
-import org.apache.log4j.Logger;
-
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
@@ -13,21 +10,22 @@ import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
+import org.apache.log4j.Logger;
+
 import ro.ulbsibiu.acaps.e3s.ctg.E3sBenchmarkData;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sCore;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sCore.E3sCoreParams;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sTaskCore;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sTaskCore.E3sTaskCoreParams;
-
 import de.susebox.jtopas.Flags;
+import de.susebox.jtopas.ReaderSource;
+import de.susebox.jtopas.StandardTokenizer;
+import de.susebox.jtopas.StandardTokenizerProperties;
 import de.susebox.jtopas.Token;
 import de.susebox.jtopas.Tokenizer;
 import de.susebox.jtopas.TokenizerException;
 import de.susebox.jtopas.TokenizerProperties;
-import de.susebox.jtopas.StandardTokenizer;
-import de.susebox.jtopas.StandardTokenizerProperties;
-import de.susebox.jtopas.ReaderSource;
 
 /**
  * File parser for the <a href="http://ziyang.eecs.umich.edu/~dickrp/e3s/">E3S
@@ -54,7 +52,7 @@ public class E3sTgffFileParser {
 	
 	private static final String REGEX_ANY_INTEGER_NUMBER = "-?[0-9]*";
 	
-	private static final String REGEX_ANY_DOUBLE_NUMBER = "[-+]?\\b\\d+(\\.\\d+)?\\b";
+//	private static final String REGEX_ANY_DOUBLE_NUMBER = "[-+]?\\b\\d+(\\.\\d+)?\\b";
 	
 	private static final String REGEX_ANY_POSITIVE_DOUBLE_NUMBER = "[+]?\\b\\d+(\\.\\d+)?\\b";
 	
@@ -64,7 +62,7 @@ public class E3sTgffFileParser {
 	
 	private static final String TGFF_LINE_COMMENT = "#";
 	
-	private static final String TGFF_BLOCK_START = "{";
+//	private static final String TGFF_BLOCK_START = "{";
 	
 	private static final String TGFF_BLOCK_END = "}";
 	
@@ -218,12 +216,11 @@ public class E3sTgffFileParser {
 		TokenizerProperties props = new StandardTokenizerProperties();
 		Tokenizer tokenizer = new StandardTokenizer();
 		Token token;
-		int caseFlags;
 		
 		// setup the tokenizer
 		props.setParseFlags(Flags.F_NO_CASE | Flags.F_TOKEN_POS_ONLY
 				| Flags.F_RETURN_WHITESPACES);
-		caseFlags = props.getParseFlags() & ~Flags.F_NO_CASE;
+//		int caseFlags = props.getParseFlags() & ~Flags.F_NO_CASE;
 		props.setSeparators(null);
 		
 		props.addLineComment(TGFF_LINE_COMMENT);
@@ -457,7 +454,7 @@ public class E3sTgffFileParser {
 			TokenizerException, JAXBException {
 		System.err.println("usage:   java E3sCtgViewer.class [.tgff file]");
 		System.err.println("example 1 (specify the tgff file): java E3sCtgViewer.class e3s/telecom-mocsyn.tgff");
-		System.err.println("example 1 (parse the entire E3S benchmark suite): java E3sCtgViewer.class");
+		System.err.println("example 2 (parse the entire E3S benchmark suite): java E3sCtgViewer.class");
 		if (args == null || args.length == 0) {
 			final String E3S = "e3s";
 			File e3sDir = new File(E3S);
