@@ -455,34 +455,28 @@ public class E3sTgffFileParser {
 		System.err.println("usage:   java E3sCtgViewer.class [.tgff file]");
 		System.err.println("example 1 (specify the tgff file): java E3sCtgViewer.class e3s/telecom-mocsyn.tgff");
 		System.err.println("example 2 (parse the entire E3S benchmark suite): java E3sCtgViewer.class");
+		final String E3S = "e3s";
+		File[] tgffFiles = null;
 		if (args == null || args.length == 0) {
-			final String E3S = "e3s";
 			File e3sDir = new File(E3S);
 			logger.assertLog(e3sDir.isDirectory(),
 					"Could not find the E3S benchmarks directory!");
-			File[] tgffFiles = e3sDir.listFiles(new FilenameFilter() {
+			tgffFiles = e3sDir.listFiles(new FilenameFilter() {
 
 				@Override
 				public boolean accept(File dir, String name) {
 					return name.endsWith(".tgff");
 				}
 			});
-			for (int i = 0; i < tgffFiles.length; i++) {
-				E3sTgffFileParser e3sFileParser = new E3sTgffFileParser(E3S
-						+ File.separator + tgffFiles[i].getName());
-				e3sFileParser.parseTgffFile();
-
-				List<E3sBenchmarkData> e3sCtgs = e3sFileParser.getE3sCtgs();
-				for (E3sBenchmarkData e3sBenchmarkData : e3sCtgs) {
-					E3sToXmlParser e3sToXmlParser = new E3sToXmlParser(
-							e3sBenchmarkData);
-					e3sToXmlParser.parse();
-				}
-				logger.info("Finished with " + E3S + File.separator
-						+ tgffFiles[i].getName());
-			}
 		} else {
-			E3sTgffFileParser e3sFileParser = new E3sTgffFileParser(args[0]);
+			tgffFiles = new File[args.length];
+			for (int i = 0; i < args.length; i++) {
+				tgffFiles[i] = new File(args[i]);
+			}
+		}
+		for (int i = 0; i < tgffFiles.length; i++) {
+			E3sTgffFileParser e3sFileParser = new E3sTgffFileParser(E3S
+					+ File.separator + tgffFiles[i].getName());
 			e3sFileParser.parseTgffFile();
 
 			List<E3sBenchmarkData> e3sCtgs = e3sFileParser.getE3sCtgs();
@@ -491,7 +485,8 @@ public class E3sTgffFileParser {
 						e3sBenchmarkData);
 				e3sToXmlParser.parse();
 			}
-			logger.info("Finished with " + args[0]);
+			logger.info("Finished with " + E3S + File.separator
+					+ tgffFiles[i].getName());
 		}
 		logger.info("Done.");
 	}
