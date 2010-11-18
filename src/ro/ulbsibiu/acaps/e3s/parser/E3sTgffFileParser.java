@@ -2,8 +2,11 @@ package ro.ulbsibiu.acaps.e3s.parser;
 
 import org.apache.log4j.Logger;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -164,7 +167,7 @@ public class E3sTgffFileParser {
 	 */
 	public E3sTgffFileParser(String filePath) {
 		this.filePath = filePath;
-		logger.info("Working the E3S " + filePath + " benchmark");
+		logger.info("Parsing the E3S " + filePath + " benchmark");
 		e3sCtgs = new ArrayList<E3sBenchmarkData>();
 	}
 	
@@ -452,18 +455,47 @@ public class E3sTgffFileParser {
 	// Main method. Supply a TGFF file name as argument
 	public static void main(String[] args) throws FileNotFoundException,
 			TokenizerException, JAXBException {
+		System.err.println("usage:   java E3sCtgViewer.class [.tgff file]");
+		System.err.println("example 1 (specify the tgff file): java E3sCtgViewer.class e3s/telecom-mocsyn.tgff");
+		System.err.println("example 1 (parse the entire E3S benchmark suite): java E3sCtgViewer.class");
 		if (args == null || args.length == 0) {
-			System.err.println("usage:   java E3sCtgViewer.class <.tgff file>");
-			System.err.println("example: java E3sCtgViewer.class e3s/telecom-mocsyn.tgff");
+			final String E3S = "e3s";
+			File e3sDir = new File(E3S);
+			logger.assertLog(e3sDir.isDirectory(),
+					"Could not find the E3S benchmarks directory!");
+			File[] tgffFiles = e3sDir.listFiles(new FilenameFilter() {
+
+				@Override
+				public boolean accept(File dir, String name) {
+					return name.endsWith(".tgff");
+				}
+			});
+			for (int i = 0; i < tgffFiles.length; i++) {
+				E3sTgffFileParser e3sFileParser = new E3sTgffFileParser(E3S
+						+ File.separator + tgffFiles[i].getName());
+				e3sFileParser.parseTgffFile();
+
+				List<E3sBenchmarkData> e3sCtgs = e3sFileParser.getE3sCtgs();
+				for (E3sBenchmarkData e3sBenchmarkData : e3sCtgs) {
+					E3sToXmlParser e3sToXmlParser = new E3sToXmlParser(
+							e3sBenchmarkData);
+					e3sToXmlParser.parse();
+				}
+				logger.info("Finished with " + E3S + File.separator
+						+ tgffFiles[i].getName());
+			}
 		} else {
 			E3sTgffFileParser e3sFileParser = new E3sTgffFileParser(args[0]);
 			e3sFileParser.parseTgffFile();
-		
+
 			List<E3sBenchmarkData> e3sCtgs = e3sFileParser.getE3sCtgs();
 			for (E3sBenchmarkData e3sBenchmarkData : e3sCtgs) {
-				E3sToXmlParser e3sToXmlParser = new E3sToXmlParser(e3sBenchmarkData);
+				E3sToXmlParser e3sToXmlParser = new E3sToXmlParser(
+						e3sBenchmarkData);
 				e3sToXmlParser.parse();
 			}
+			logger.info("Finished with " + args[0]);
 		}
+		logger.info("Done.");
 	}
 }
