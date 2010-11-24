@@ -126,7 +126,6 @@ public class E3sBenchmarkData {
 	 * builds the Communication Task Graph
 	 */
 	public void buildCtg() {
-		// FIXME the CTG must keep the performance metrics of the IP cores
 		for (int i = 0; i < vertices.size(); i++) {
 			// we do not add the E3sVertex but only its name
 			ctg.addVertex(vertices.get(i).getName());
