@@ -46,7 +46,7 @@ public class E3sTgffFileParser {
 
 	// REGEX specific patterns
 	
-	private static final String REGEX_ANY_CHARACTER = "[A-Za-z0-9_]";
+	private static final String REGEX_ANY_CHARACTER = "[A-Za-z0-9_\\-]";
 	
 	private static final String REGEX_ANY_CHARACTER_MULTIPLE_TIMES = REGEX_ANY_CHARACTER + "*";
 	
@@ -332,6 +332,9 @@ public class E3sTgffFileParser {
 							if (tokenizer.currentImage().startsWith(TASK)) {
 								currentAttribute = TASK;
 								String taskValue = getAttributeValue(TASK, tokenizer.currentImage());
+								if ("display".equals(taskValue)){
+									System.out.println();
+								}
 								if (taskValue == null || taskValue.isEmpty()) {
 									taskValue = getAttributeValue(TASK.toLowerCase(),tokenizer.currentImage());
 								}
