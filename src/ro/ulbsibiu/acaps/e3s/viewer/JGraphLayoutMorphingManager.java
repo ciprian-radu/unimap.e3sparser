@@ -14,6 +14,7 @@ package ro.ulbsibiu.acaps.e3s.viewer;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -201,7 +202,10 @@ public class JGraphLayoutMorphingManager implements ActionListener {
 			while (it.hasNext())
 				updateCell(it.next());
 			graph.getGraphLayoutCache().update(context);
-			graph.getGraphics().setClip(clip);
+			Graphics graphics = graph.getGraphics();
+			if (graphics != null) {
+				graphics.setClip(clip);
+			}
 			fitViewport(graph);
 			graph.repaint();
 		}
