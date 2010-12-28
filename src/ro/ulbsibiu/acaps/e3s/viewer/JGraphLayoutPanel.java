@@ -30,7 +30,6 @@ import com.jgraph.layout.hierarchical.JGraphHierarchicalLayout;
 import com.jgraph.layout.organic.JGraphFastOrganicLayout;
 import com.jgraph.layout.organic.JGraphOrganicLayout;
 import com.jgraph.layout.organic.JGraphSelfOrganizingOrganicLayout;
-import com.jgraph.layout.simple.SimpleGridLayout;
 import com.jgraph.layout.tree.JGraphCompactTreeLayout;
 import com.jgraph.layout.tree.JGraphRadialTreeLayout;
 import com.jgraph.layout.tree.JGraphTreeLayout;
@@ -204,10 +203,7 @@ public class JGraphLayoutPanel extends JPanel {
 	 * Resets the graph to a circular layout.
 	 */
 	public void reset() {
-		SimpleGridLayout simpleGridLayout = new SimpleGridLayout();
-		simpleGridLayout.setActOnUnconnectedVerticesOnly(false);
-		simpleGridLayout.setOrdered(true);
-		execute(simpleGridLayout);
+		execute(new JGraphHierarchicalLayout());
 		graph.clearSelection();
 		JGraphLayoutMorphingManager.fitViewport(graph);
 	}
