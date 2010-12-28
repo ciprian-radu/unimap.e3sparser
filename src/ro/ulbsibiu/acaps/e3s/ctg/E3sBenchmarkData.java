@@ -3,7 +3,8 @@ package ro.ulbsibiu.acaps.e3s.ctg;
 import java.util.ArrayList;
 import java.util.List;
 
-import ro.ulbsibiu.acaps.ctg.CommunicationTaskGraph;
+import org.jgrapht.graph.DefaultDirectedWeightedGraph;
+
 import ro.ulbsibiu.acaps.e3s.ctg.E3sDeadline.DeadlineType;
 
 /**
@@ -21,7 +22,7 @@ public class E3sBenchmarkData {
 	/** the ID of the CTG (an E3S benchmark file may hold multiple CTGs) */
 	private int ctgId; 
 
-	private CommunicationTaskGraph ctg;
+	private DefaultDirectedWeightedGraph<Object, Object>  ctg;
 	
 	/** the period of the CTG (measured in seconds). The root task node injects new data with this period */
 	private double period;
@@ -51,7 +52,7 @@ public class E3sBenchmarkData {
 		this.name = name;
 		this.ctgId = ctgId;
 		period = 0;
-		ctg = new CommunicationTaskGraph();
+		ctg = new DefaultDirectedWeightedGraph<Object, Object> (Object.class);
 		communicationVolumes = new ArrayList<E3sCommunicationVolume>();
 		vertices = new ArrayList<E3sVertex>();
 		edges = new ArrayList<E3sEdge>();
@@ -150,7 +151,7 @@ public class E3sBenchmarkData {
 		return ctgId;
 	}
 
-	public CommunicationTaskGraph getCtg() {
+	public DefaultDirectedWeightedGraph<Object, Object>  getCtg() {
 		return ctg;
 	}
 
