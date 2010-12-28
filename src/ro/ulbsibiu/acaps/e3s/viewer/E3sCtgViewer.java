@@ -8,8 +8,8 @@ import javax.swing.JFrame;
 
 import org.jgraph.JGraph;
 import org.jgraph.graph.VertexView;
+import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 
-import ro.ulbsibiu.acaps.ctg.CommunicationTaskGraph;
 import ro.ulbsibiu.acaps.e3s.ctg.E3sBenchmarkData;
 import ro.ulbsibiu.acaps.e3s.parser.E3sTgffFileParser;
 
@@ -28,9 +28,9 @@ public class E3sCtgViewer extends JApplet {
 
 	private E3sJGraphModelAdapter jgAdapter;
 	
-	private CommunicationTaskGraph ctg;
+	private DefaultDirectedWeightedGraph<Object, Object>  ctg;
 	
-	public E3sCtgViewer(CommunicationTaskGraph ctg) {
+	public E3sCtgViewer(DefaultDirectedWeightedGraph<Object, Object> ctg) {
 		this.ctg = ctg;
 	}
 	
